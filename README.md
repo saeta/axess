@@ -1,3 +1,4 @@
+<!--- Build this file by running `pandoc README.md > README.html` -->
 # Axess: A website accessibility checker #
 
  * Author: Brennan Saeta <brennan.saeta@gmail.com>
