@@ -1,8 +1,19 @@
 package com.cautiousfireball.axess
 
-import akka.actor._
+import play.api.mvc.{ Action, AsyncResult }
+import play.api.mvc.Results._
+import play.api.libs.concurrent._
 
-object Axess extends App {
+import akka.actor._
+import com.typesafe.play.mini.{ POST, Path, GET, Application }
+
+object Axess extends Application {
+
+  def route = {
+    case GET(Path("/")) => Action {
+      Ok("Hello world @ %s\n".format(System.currentTimeMillis))
+    }
+  }
 
   class Listener extends Actor {
     def receive = {
