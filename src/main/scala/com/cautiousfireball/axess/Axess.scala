@@ -5,10 +5,17 @@ import play.api._
 import play.api.mvc._
 import play.api.libs.concurrent._
 import akka.actor._
+import akka.pattern._
+import akka.util.duration._
+import akka.util.Timeout
 import com.typesafe.play.mini.{ POST, Path, GET, Application }
 import html.index
 
 object Axess extends Application {
+
+  val system = ActorSystem("Axess")
+  val sr = system.actorOf(Props[SimpleResponder])
+  implicit val timeout = Timeout(1000 milliseconds)
 
   def route = {
     case GET(Path("/")) => Action {
@@ -17,6 +24,11 @@ object Axess extends Application {
     case GET(Path("/index")) => Action {
       val h = html.index("A message!")
       Ok(html.index("A Message!").toString()).as("text/html")
+    }
+    case GET(Path("/test")) => Action {
+      AsyncResult {
+        (sr ? "ping").mapTo[String].asPromise.map { r => Ok("Response: " + r) }
+      }
     }
   }
 
