@@ -1,9 +1,0 @@
-target
-.classpath
-.project
-.cache
-*~
-RUNNING_PID
-logs
-bin
-README.html
