@@ -4,8 +4,7 @@
  * Author: Brennan Saeta <brennan.saeta@gmail.com>
  * Written: February, 2012
  * Contributors:
-
-           - Your name here
+     - Your name here
 
 ## Background ##
 
