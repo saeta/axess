@@ -1,17 +1,22 @@
 package com.cautiousfireball.axess
 
-import play.api.mvc.{ Action, AsyncResult }
 import play.api.mvc.Results._
+import play.api._
+import play.api.mvc._
 import play.api.libs.concurrent._
-
 import akka.actor._
 import com.typesafe.play.mini.{ POST, Path, GET, Application }
+import html.index
 
 object Axess extends Application {
 
   def route = {
     case GET(Path("/")) => Action {
       Ok("Hello world @ %s\n".format(System.currentTimeMillis))
+    }
+    case GET(Path("/index")) => Action {
+      val h = html.index("A message!")
+      Ok(html.index("A Message!").toString()).as("text/html")
     }
   }
 
