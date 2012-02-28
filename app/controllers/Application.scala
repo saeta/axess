@@ -9,6 +9,7 @@ import akka.actor.Props
 import akka.pattern._
 import akka.util.duration._
 import akka.util.Timeout
+import com.cautiousfireball.axess.Axess
 
 object Application extends Controller {
 
@@ -20,6 +21,7 @@ object Application extends Controller {
 
   val system = ActorSystem("Axess")
   val sr = system.actorOf(Props[SimpleResponder])
+  val axess = system.actorOf(Props[Axess])
   implicit val timeout = Timeout(1000 milliseconds)
 
   def index = Action {
@@ -29,6 +31,12 @@ object Application extends Controller {
   def foo = Action {
     AsyncResult {
       (sr ? "ping").mapTo[String].asPromise.map { r => Ok("Response: " + r) }
+    }
+  }
+
+  def bar = Action {
+    AsyncResult {
+      (axess ? "Hello").mapTo[String].asPromise.map { r => Ok("Response: " + r) }
     }
   }
 
