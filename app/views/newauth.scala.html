@@ -11,7 +11,9 @@
   </div>
 </header>
 <section id="add">
-  <div>
+
+  <div class="row">
+  <div class="span8">
     @form(routes.AuthController.newAuth, 'class -> "form-horizontal well") {
       <fieldset>
       @helper.inputText(authform("username"), '_label->"Username", '_help -> "Username to log in with", 'placeholder -> "foo@example.com")
@@ -25,7 +27,15 @@
       </fieldset>
     }
   
-  </div>
+  </div> <!-- div / span 8 -->
+  <div class="span4">
+    <h2> About </h2>
+    
+    <p> This is the username/password combinations used to access websites. </p>
+    
+    <p> TODO: Write more info here </p>
+  </div> <!-- div / span 4 -->
+  </div> <!-- div / row -->
   </div>
   </div>
 </section>
