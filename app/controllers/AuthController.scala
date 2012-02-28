@@ -17,6 +17,8 @@ import models.AuthData
 
 object AuthController extends Controller {
 
+  // TODO: rework auth into a list of everything, with a form to add new on the
+  // site, which posts to newauth method
   val newAuthForm = Form(
     tuple(
       "username" -> nonEmptyText,
@@ -25,12 +27,10 @@ object AuthController extends Controller {
   def newAuth = Action { implicit request =>
     newAuthForm.bindFromRequest.fold(
       errors => {
-        println("Bad request?!?!?")
         BadRequest(views.html.newauth(errors))
       },
       a => {
         AuthData.create(a._1, a._2)
-        println("Created!")
         Redirect(routes.AuthController.all)
       })
   }
