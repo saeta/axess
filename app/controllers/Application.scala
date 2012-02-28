@@ -2,6 +2,7 @@ package controllers
 
 import play.api._
 import play.api.mvc._
+import play.api.db._
 import play.api.libs.concurrent._
 import akka.actor.ActorSystem
 import akka.actor.Actor
@@ -10,6 +11,8 @@ import akka.pattern._
 import akka.util.duration._
 import akka.util.Timeout
 import com.cautiousfireball.axess.Axess
+import play.api.Play._
+import models.AuthData
 
 object Application extends Controller {
 
@@ -20,8 +23,8 @@ object Application extends Controller {
   }
 
   val system = ActorSystem("Axess")
-  val sr = system.actorOf(Props[SimpleResponder])
-  val axess = system.actorOf(Props[Axess])
+  val sr = system.actorOf(Props[SimpleResponder], "simpleResponder")
+  val axess = system.actorOf(Props[Axess], "axess")
   implicit val timeout = Timeout(1000 milliseconds)
 
   def index = Action {
@@ -38,6 +41,21 @@ object Application extends Controller {
     AsyncResult {
       (axess ? "Hello").mapTo[String].asPromise.map { r => Ok("Response: " + r) }
     }
+  }
+
+  def baz = Action { implicit req =>
+    Ok(AuthData.all().mkString("List(", ", ", ")"))
+  }
+
+  def auth(username: String) = Action { implicit req =>
+    DB.withConnection { implicit c =>
+      Ok(AuthData.auth(username).mkString)
+    }
+  }
+
+  def authAdd(username: String, passwd: String) = Action { implicit req =>
+    AuthData.create(username, passwd)
+    Redirect(routes.Application.baz)
   }
 
 }
