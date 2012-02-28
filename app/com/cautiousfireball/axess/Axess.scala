@@ -15,7 +15,6 @@ class Axess extends Actor {
 
   def receive() = {
     case s @ "Hello" =>
-      //      sender ! "world!"
       managerRouter.forward(s)
   }
 
