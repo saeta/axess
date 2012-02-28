@@ -13,7 +13,7 @@ import com.cautiousfireball.axess.Axess
 import play.api.Play._
 import play.api.data._
 import play.api.data.Forms._
-import models.AuthData
+import models.Credentials
 
 object AuthController extends Controller {
 
@@ -30,7 +30,7 @@ object AuthController extends Controller {
         BadRequest(views.html.newauth(errors))
       },
       a => {
-        AuthData.create(a._1, a._2)
+        Credentials.create(a._1, a._2)
         Redirect(routes.AuthController.all)
       })
   }

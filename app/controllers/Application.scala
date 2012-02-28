@@ -11,7 +11,7 @@ import akka.util.duration._
 import akka.util.Timeout
 import com.cautiousfireball.axess.Axess
 import play.api.Play._
-import models.AuthData
+import models.Credentials
 
 object Application extends Controller {
 
@@ -43,15 +43,15 @@ object Application extends Controller {
   }
 
   def baz = Action { implicit req =>
-    Ok(AuthData.all().mkString("List(", ", ", ")"))
+    Ok(Credentials.all().mkString("List(", ", ", ")"))
   }
 
   def auth(username: String) = Action { implicit req =>
-    Ok(AuthData.auth(username).mkString)
+    Ok(Credentials.auth(username).mkString)
   }
 
   def authAdd(username: String, passwd: String) = Action { implicit req =>
-    AuthData.create(username, passwd)
+    Credentials.create(username, passwd)
     Redirect(routes.Application.baz)
   }
 

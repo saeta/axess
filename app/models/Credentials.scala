@@ -5,13 +5,16 @@ import anorm.SqlParser._
 import play.api.db._
 import play.api.Play.current
 
-case class AuthData(username: String, password: String)
+/**
+ * TODO: include description field, and perhaps an ID
+ */
+case class Credentials(username: String, password: String)
 
-object AuthData {
+object Credentials {
   val authData = {
     get[String]("username") ~
       get[String]("passwd") map {
-        case username ~ password => AuthData(username, password)
+        case username ~ password => Credentials(username, password)
       }
   }
 
@@ -24,9 +27,13 @@ object AuthData {
       'username -> username).as(authData.singleOpt)
   }
 
+  /**
+   * Make sure username is unique?
+   */
   def create(username: String, password: String) = DB.withConnection { implicit c =>
     SQL("INSERT INTO AuthData (username, passwd) values ({username}, {password})").on(
       'username -> username,
       'password -> password).executeUpdate()
+    true
   }
 }
