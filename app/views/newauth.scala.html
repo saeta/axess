@@ -1,0 +1,26 @@
+@(authform: Form[(String, String)])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("New Authentication Username/Password Combo") {
+  <h1>Add a new Authentication User/Pass Combo</h1>
+  
+  
+  <div>
+    @form(routes.AuthController.newAuth, 'class -> "form-horizontal well") {
+      <fieldset>
+      @helper.inputText(authform("username"), '_label->"Username", '_help -> "Username to log in with", 'placeholder -> "foo@example.com")
+    
+      @helper.inputText(authform("password"), '_label->"Password", '_help -> "Password to log in with", 'placeholder -> "letmein")
+
+      <div class="form-actions">      
+        <input type="submit" class="btn btn-primary" value="Create" />
+        <a href="@routes.AuthController.all"><button class="btn">Cancel</button></a>
+      </div> 
+      </fieldset>
+    }
+  
+  </div>
+
+}
