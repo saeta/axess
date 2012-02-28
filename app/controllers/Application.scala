@@ -48,9 +48,7 @@ object Application extends Controller {
   }
 
   def auth(username: String) = Action { implicit req =>
-    DB.withConnection { implicit c =>
-      Ok(AuthData.auth(username).mkString)
-    }
+    Ok(AuthData.auth(username).mkString)
   }
 
   def authAdd(username: String, passwd: String) = Action { implicit req =>
