@@ -1,4 +1,4 @@
-package com.cautiousfireball.axess.checkers
+package axess.checkers
 import org.openqa.selenium.WebDriver
 
 trait Checker {

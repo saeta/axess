@@ -1,4 +1,4 @@
-package com.cautiousfireball.axess
+package axess
 
 case class ScanRequest(siteName: String)
 case class ScanResult(siteName: String, scanResult: String)

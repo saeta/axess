@@ -1,4 +1,4 @@
-package com.cautiousfireball.axess
+package axess
 
 import akka.actor.Actor
 import scala.collection.immutable.Stack
