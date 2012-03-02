@@ -7,9 +7,9 @@ GET     /                           controllers.Application.index
 GET     /foo                        controllers.Application.foo
 GET     /bar                        controllers.Application.bar
 GET     /baz                        controllers.Application.baz
-GET     /creds                      controllers.AuthController.all
-POST    /creds/new                  controllers.AuthController.newAuth
-POST    /creds/delete               controllers.AuthController.delete(id: Long)
+GET     /creds                      controllers.CredentialsController.all
+POST    /creds/new                  controllers.CredentialsController.newAuth
+POST    /creds/delete               controllers.CredentialsController.delete(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

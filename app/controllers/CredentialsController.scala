@@ -15,7 +15,7 @@ import play.api.data._
 import play.api.data.Forms._
 import models.Credentials
 
-object AuthController extends Controller {
+object CredentialsController extends Controller {
 
   val newAuthForm = Form(
     tuple(
@@ -26,20 +26,20 @@ object AuthController extends Controller {
   def newAuth = Action { implicit request =>
     newAuthForm.bindFromRequest.fold(
       errors => {
-        BadRequest(views.html.newauth(Credentials.all(), errors))
+        BadRequest(views.html.creds(Credentials.all(), errors))
       },
       a => {
         Credentials.create(a._1, a._2, a._3)
-        Redirect(routes.AuthController.all)
+        Redirect(routes.CredentialsController.all)
       })
   }
 
   def all = Action {
-    Ok(views.html.newauth(Credentials.all(), newAuthForm))
+    Ok(views.html.creds(Credentials.all(), newAuthForm))
   }
 
   def delete(id: Long) = Action {
     Credentials.delete(id)
-    Redirect(routes.AuthController.all)
+    Redirect(routes.CredentialsController.all)
   }
 }

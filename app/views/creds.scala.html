@@ -18,7 +18,7 @@
 
     <p> This is the username/password combinations used to access websites. </p>
 
-    <p> TODO: Write more info here </p>
+    <p> A set of credentials is used to create a <a href="routes.SitesController.all">site</a>. </p>
 
     <div class="alert">
       <strong>Warning!</strong> Passwords are stored <i>unencrypted</i>. Do NOT use secure passwords!
@@ -37,17 +37,17 @@
       </thead>
       <tbody>
         @creds.map { cred =>
-        <tr>
-          <td>@cred.id</td>
-          <td>@cred.username</td>
-          <td>@cred.password</td>
-          <td>@cred.desc</td>
-          <td>
-            @form(routes.AuthController.delete(cred.id)) {
-                <input type="submit" class="btn btn-danger btn-mini" value="Delete" />
-            }
-          </td>
-        </tr>
+          <tr>
+            <td>@cred.id</td>
+            <td>@cred.username</td>
+            <td>@cred.password</td>
+            <td>@cred.desc</td>
+            <td>
+              @form(routes.CredentialsController.delete(cred.id)) {
+                  <input type="submit" class="btn btn-danger btn-mini" value="Delete" />
+              }
+            </td>
+          </tr>
         }
       </tbody>
     </table>
@@ -55,7 +55,7 @@
   <div class="span5">
     <h2>Add new credentials</h2>
     <div>
-    @form(routes.AuthController.newAuth, 'class -> "form-horizontal well") {
+    @form(routes.CredentialsController.newAuth, 'class -> "form-horizontal well") {
       <fieldset>
       @helper.inputText(authform("username"), '_label->"Login Username", 
           'placeholder -> "foo@example.com")
@@ -68,7 +68,7 @@
 
       <div class="form-actions">      
         <input type="submit" class="btn btn-primary" value="Create" />
-        <a href="@routes.AuthController.all"><button class="btn">Cancel</button></a>
+        <a href="@routes.CredentialsController.all"><button class="btn">Cancel</button></a>
       </div> 
       </fieldset>
     }
