@@ -5,7 +5,7 @@ import org.openqa.selenium.By
 /**
  * Configuration for a site.
  */
-trait Site {
+abstract class Site {
   /**
    * Log in to a website using the given username and password
    */

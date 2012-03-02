@@ -9,6 +9,7 @@ GET     /bar                        controllers.Application.bar
 GET     /baz                        controllers.Application.baz
 GET     /auth                       controllers.AuthController.all
 POST    /auth/new                   controllers.AuthController.newAuth
+POST    /auth/delete                controllers.AuthController.delete(id: Int)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

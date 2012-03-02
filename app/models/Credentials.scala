@@ -8,32 +8,45 @@ import play.api.Play.current
 /**
  * TODO: include description field, and perhaps an ID
  */
-case class Credentials(username: String, password: String)
+case class Credentials(id: Int, username: String, password: String, desc: String)
 
 object Credentials {
   val authData = {
-    get[String]("username") ~
-      get[String]("passwd") map {
-        case username ~ password => Credentials(username, password)
+    get[Long]("id") ~
+      get[String]("username") ~
+      get[String]("passwd") ~
+      get[String]("dsc") map {
+        case id ~ username ~ password ~ desc =>
+          Credentials(id.toInt, username, password, desc)
       }
   }
 
   def all() = DB.withConnection { implicit c =>
-    SQL("SELECT * FROM AuthData").as(authData *)
+    SQL("SELECT * FROM Creds ORDER BY id").as(authData *)
   }
 
   def auth(username: String) = DB.withConnection { implicit c =>
-    SQL("SELECT * FROM AuthData WHERE username = {username}").on(
+    SQL("SELECT * FROM Creds WHERE username = {username}").on(
       'username -> username).as(authData.singleOpt)
   }
 
-  /**
-   * Make sure username is unique?
-   */
-  def create(username: String, password: String) = DB.withConnection { implicit c =>
-    SQL("INSERT INTO AuthData (username, passwd) values ({username}, {password})").on(
-      'username -> username,
-      'password -> password).executeUpdate()
-    true
+  def getCred(id: Long) = DB.withConnection { implicit c =>
+    SQL("SELECT * FROM Creds WHERE id = {id}").on(
+      'id -> id).as(authData.singleOpt)
+  }
+
+  def create(username: String, password: String, desc: String = "") =
+    DB.withConnection { implicit c =>
+      SQL("""INSERT INTO Creds (username, passwd, dsc)
+             VALUES ({username}, {password}, {desc})""").on(
+        'username -> username,
+        'password -> password,
+        'desc -> desc).executeUpdate()
+      true
+    }
+
+  def delete(id: Long) = DB.withConnection { implicit c =>
+    SQL("DELETE FROM Creds WHERE id = {id}").on(
+      'id -> id).executeUpdate()
   }
 }

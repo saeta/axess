@@ -1,4 +1,4 @@
-@(authform: Form[(String, String)])
+@(creds: List[Credentials], authform: Form[(String, String, String)])
 
 @import helper._
 @import helper.twitterBootstrap._
@@ -13,22 +13,7 @@
 <section id="add">
 
   <div class="row">
-  <div class="span8">
-    @form(routes.AuthController.newAuth, 'class -> "form-horizontal well") {
-      <fieldset>
-      @helper.inputText(authform("username"), '_label->"Username", '_help -> "Username to log in with", 'placeholder -> "foo@example.com")
-    
-      @helper.inputText(authform("password"), '_label->"Password", '_help -> "Password to log in with", 'placeholder -> "letmein")
-
-      <div class="form-actions">      
-        <input type="submit" class="btn btn-primary" value="Create" />
-        <a href="@routes.AuthController.all"><button class="btn">Cancel</button></a>
-      </div> 
-      </fieldset>
-    }
-  
-  </div> <!-- div / span 8 -->
-  <div class="span4">
+  <div class="span7">
     <h2> About </h2>
 
     <p> This is the username/password combinations used to access websites. </p>
@@ -38,7 +23,57 @@
     <div class="alert">
       <strong>Warning!</strong> Passwords are stored <i>unencrypted</i>. Do NOT use secure passwords!
     </div>
-  </div> <!-- div / span 4 -->
+    
+    <h2>Stored Usernames And Passwords</h2>
+    <table class="table table-bordered table-striped table-condensed">
+      <thead>
+        <tr>
+          <td>Id</td>
+          <td>Username</td>
+          <td>Password</td>
+          <td>Description</td>
+          <td>Delete</td>
+        </tr>
+      </thead>
+      <tbody>
+        @creds.map { cred =>
+        <tr>
+          <td>@cred.id</td>
+          <td>@cred.username</td>
+          <td>@cred.password</td>
+          <td>@cred.desc</td>
+          <td>
+            @form(routes.AuthController.delete(cred.id)) {
+                <input type="submit" class="btn btn-danger btn-mini" value="Delete" />
+            }
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <div class="span5">
+    <h2>Add new credentials</h2>
+    <div>
+    @form(routes.AuthController.newAuth, 'class -> "form-horizontal well") {
+      <fieldset>
+      @helper.inputText(authform("username"), '_label->"Login Username", 
+          'placeholder -> "foo@example.com")
+    
+      @helper.inputText(authform("password"), '_label->"Login Password",
+          'placeholder -> "letmein")
+      
+      @helper.inputText(authform("description"), '_label->"Description",
+          'placeholder -> "Description...")
+
+      <div class="form-actions">      
+        <input type="submit" class="btn btn-primary" value="Create" />
+        <a href="@routes.AuthController.all"><button class="btn">Cancel</button></a>
+      </div> 
+      </fieldset>
+    }
+    </div>
+  </div> <!-- div / span 5 -->
   </div> <!-- div / row -->
   </div>
   </div>

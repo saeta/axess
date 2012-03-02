@@ -20,7 +20,7 @@ class Scanner extends Actor {
   override def preStart() {
     browser = new HtmlUnitDriver
     site = new CourseraSite("playspace")
-    site.login(browser, Credentials("REMOVED", "REMOVED"))
+    site.login(browser, Credentials(1, "REMOVED", "REMOVED", "NOTHING"))
   }
 
   def scanPage(url: String) = {

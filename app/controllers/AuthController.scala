@@ -17,28 +17,29 @@ import models.Credentials
 
 object AuthController extends Controller {
 
-  // TODO: rework auth into a list of everything, with a form to add new on the
-  // site, which posts to newauth method
   val newAuthForm = Form(
     tuple(
       "username" -> nonEmptyText,
-      "password" -> nonEmptyText))
+      "password" -> nonEmptyText,
+      "description" -> text))
 
   def newAuth = Action { implicit request =>
     newAuthForm.bindFromRequest.fold(
       errors => {
-        BadRequest(views.html.newauth(errors))
+        BadRequest(views.html.newauth(Credentials.all(), errors))
       },
       a => {
-        Credentials.create(a._1, a._2)
+        Credentials.create(a._1, a._2, a._3)
         Redirect(routes.AuthController.all)
       })
   }
 
   def all = Action {
-    Ok(views.html.newauth(newAuthForm))
+    Ok(views.html.newauth(Credentials.all(), newAuthForm))
   }
 
-  //  def authAdd = TODO
-
+  def delete(id: Long) = Action {
+    Credentials.delete(id)
+    Redirect(routes.AuthController.all)
+  }
 }
