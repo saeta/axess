@@ -9,7 +9,7 @@ import akka.actor.Props
 import akka.pattern._
 import akka.util.duration._
 import akka.util.Timeout
-import com.cautiousfireball.axess.Axess
+import axess.Axess
 import play.api.Play._
 import play.api.data._
 import play.api.data.Forms._
