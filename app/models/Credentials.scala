@@ -8,7 +8,7 @@ import play.api.Play.current
 /**
  * TODO: include description field, and perhaps an ID
  */
-case class Credentials(id: Int, username: String, password: String, desc: String)
+case class Credentials(id: Long, username: String, password: String, desc: String)
 
 object Credentials {
   val authData = {
@@ -17,7 +17,7 @@ object Credentials {
       get[String]("passwd") ~
       get[String]("dsc") map {
         case id ~ username ~ password ~ desc =>
-          Credentials(id.toInt, username, password, desc)
+          Credentials(id, username, password, desc)
       }
   }
 
