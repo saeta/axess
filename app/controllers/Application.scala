@@ -41,17 +41,4 @@ object Application extends Controller {
     }
   }
 
-  //  def baz = Action { implicit req =>
-  //    Ok(Credentials.all().mkString("List(", ", ", ")"))
-  //  }
-  //
-  //  def auth(username: String) = Action { implicit req =>
-  //    Ok(Credentials.auth(username).mkString)
-  //  }
-  //
-  //  def authAdd(username: String, passwd: String) = Action { implicit req =>
-  //    Credentials.create(username, passwd)
-  //    Redirect(routes.Application.baz)
-  //  }
-
 }
