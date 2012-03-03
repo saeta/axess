@@ -1,4 +1,4 @@
-@(frm: Form[(String, String, String, String)])
+@(id: Long, tag: String, frm: Form[Site])
 
 @import helper._
 @import helper.twitterBootstrap._
@@ -16,18 +16,20 @@
   <div class="span4">
     <h2> About </h2>
 
-    <p> A set of credentials is used to create a <a href="@routes.SiteController.all">site</a>. </p>
+    <p> A site. See them all at <a href="@routes.SiteController.all">sites</a>. </p>
 
-    <div class="alert">
+    <div class="alert alert-error">
       <strong>Warning!</strong> Passwords are stored <i>unencrypted</i>. Do NOT use secure passwords!
     </div>
     
   </div>
   <div class="span8">
-    <h2>Add new credentials</h2>
+    <h2>Edit Site: @tag</h2>
     <div>
-    @form(routes.SiteController.newSitePost, 'class -> "form-vertical well") {
+    @form(routes.SiteController.save(id), 'class -> "form-vertical well") {
       <fieldset>
+        <input type="hidden" name="id" value="@id" />
+      
       @helper.inputText(frm("tag"), '_label->"Tag", 
           'placeholder -> "main", '_help -> "A short, descriptive name")
     
@@ -39,9 +41,15 @@
           
       @helper.inputText(frm("home"), '_label->"Home Page (url)",
           'placeholder -> "http://www.example.com/")
+          
+      @helper.inputText(frm("stype"), '_label->"Site Type",
+          'placeholder -> "axess.CourseraSite")
 
+      @helper.inputText(frm("dsc"), '_label->"Description",
+          'placeholder -> "Description")
+          
       <div class="form-actions">      
-        <input type="submit" class="btn btn-primary" value="Create" />
+        <input type="submit" class="btn btn-primary" value="Update" />
         <a href="@routes.SiteController.all"><button class="btn">Cancel</button></a>
       </div> 
       </fieldset>

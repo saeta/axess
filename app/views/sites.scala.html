@@ -70,12 +70,12 @@
             <td>
             <!-- TODO: route to appropriate scan location -->
               @form(routes.SiteController.delete(site.id)) {
-                  <input type="submit" class="btn btn-success btn-mini" value="Scan" />
+                  <input type="submit" class="btn btn-success btn-mini @if(!site.scannable) {disabled}" @if(!site.scannable) {disabled="disabled" title="@site.reason"} value="Scan" />
               }
             </td>
             <td>
             <!-- TODO: route to appropriate edit location -->
-              @form(routes.SiteController.delete(site.id)) {
+              @form(routes.SiteController.edit(site.id)) {
                   <input type="submit" class="btn btn-primary btn-mini" value="Edit" />
               }
             </td>

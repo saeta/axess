@@ -7,11 +7,14 @@ import play.api.Play.current
 
 // TODO: handle nulls!
 case class Site(id: Long, tag: String, usr: String, pwd: String, home: String,
-  stype: Option[String], dsc: Option[String])
+  stype: Option[String], dsc: Option[String]) {
+  def scannable = stype != None
+
+  def reason = "Type of site undefined!"
+}
 
 object Site {
 
-  // TODO: handle nulls!
   val site = {
     long("id") ~
       str("tag") ~
@@ -47,6 +50,15 @@ object Site {
     SQL("SELECT * FROM Sites WHERE id = {id}").on('id -> id).as(site.singleOpt)
   }
 
-  //  def update() // TODO: Site.update
+  def update(s: Site) = DB.withConnection { implicit c =>
+    SQL("""UPDATE Sites SET tag={tag}, username={usr}, password={pwd}, home={home}, type={typ}, dsc={dsc} WHERE id={id}""").on(
+      'id -> s.id,
+      'tag -> s.tag,
+      'usr -> s.usr,
+      'pwd -> s.pwd,
+      'home -> s.home,
+      'typ -> s.stype,
+      'dsc -> s.dsc).executeUpdate()
+  }
 
 }
