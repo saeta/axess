@@ -6,6 +6,7 @@
  - The above should be an Akka extension
  - Make navigation template helper to make it easier to have the top bar done correctly
  - Write up instructions to build and run.
+ - Make landing page useful with rant about instructions, etc.
 
 ## Checkers ##
 
