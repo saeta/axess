@@ -7,19 +7,19 @@ import play.api.Play.current
 
 // TODO: handle nulls!
 case class Site(id: Long, tag: String, usr: String, pwd: String, home: String,
-  stype: String, dsc: String)
+  stype: Option[String], dsc: Option[String])
 
 object Site {
 
   // TODO: handle nulls!
   val site = {
-    get[Long]("id") ~
-      get[String]("tag") ~
-      get[String]("username") ~
-      get[String]("password") ~
-      get[String]("home") ~
-      get[String]("type") ~
-      get[String]("dsc") map {
+    long("id") ~
+      str("tag") ~
+      str("username") ~
+      str("password") ~
+      str("home") ~
+      get[Option[String]]("type") ~
+      get[Option[String]]("dsc") map {
         case id ~ tag ~ usr ~ pwd ~ home ~ stype ~ dsc =>
           Site(id, tag, usr, pwd, home, stype, dsc)
       }
