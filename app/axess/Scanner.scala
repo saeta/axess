@@ -8,7 +8,7 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.By
 import models.CourseraSite
-import models.Credentials
+//import models.Credentials
 import models.SiteType
 import scala.collection.JavaConversions._
 
@@ -17,11 +17,11 @@ class Scanner extends Actor {
   var site: SiteType = _
   val checkers = List()
 
-  override def preStart() {
-    browser = new HtmlUnitDriver
-    site = new CourseraSite("playspace")
-    site.login(browser, Credentials(1, "REMOVED", "REMOVED", "NOTHING"))
-  }
+  //  override def preStart() {
+  //    browser = new HtmlUnitDriver
+  //    site = new CourseraSite("playspace")
+  //    site.login(browser, Credentials(1, "REMOVED", "REMOVED", "NOTHING"))
+  //  }
 
   def scanPage(url: String) = {
     browser.get(url)

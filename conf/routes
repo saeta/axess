@@ -4,12 +4,6 @@
 
 # Home page
 GET     /                           controllers.Application.index
-GET     /foo                        controllers.Application.foo
-GET     /bar                        controllers.Application.bar
-GET     /baz                        controllers.Application.baz
-GET     /creds                      controllers.CredentialsController.all
-POST    /creds/new                  controllers.CredentialsController.newAuth
-POST    /creds/delete               controllers.CredentialsController.delete(id: Long)
 GET     /sites                      controllers.SiteController.all
 GET     /sites/new                  controllers.SiteController.newSiteGet
 POST    /sites/new                  controllers.SiteController.newSitePost

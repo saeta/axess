@@ -5,11 +5,11 @@ import org.openqa.selenium.By
 /**
  * Configuration for a site.
  */
-abstract class SiteType {
+abstract class SiteType(site: Site) {
   /**
    * Log in to a website using the given username and password
    */
-  def login(driver: WebDriver, creds: Credentials): Unit
+  def login(driver: WebDriver): Unit
 
   def inSite(url: String): Boolean
 
@@ -18,13 +18,13 @@ abstract class SiteType {
 /**
  *
  */
-class CourseraSite(site: String) extends SiteType {
-  def login(driver: WebDriver, creds: Credentials) {
+class CourseraSite(site: Site) extends SiteType(site) {
+  def login(driver: WebDriver) {
     driver.get("https://www.coursera.org/" + site)
     driver.findElement(By.id("login_normal")).click()
 
-    driver.findElement(By.name("email")).sendKeys(creds.username)
-    driver.findElement(By.name("password")).sendKeys(creds.password)
+    driver.findElement(By.name("email")).sendKeys(site.usr)
+    driver.findElement(By.name("password")).sendKeys(site.pwd)
     driver.findElement(By.name("password")).submit()
 
     driver.findElement(By.linkText("here")).click()

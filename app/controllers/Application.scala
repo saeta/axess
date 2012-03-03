@@ -11,7 +11,6 @@ import akka.util.duration._
 import akka.util.Timeout
 import axess._
 import play.api.Play._
-import models.Credentials
 
 object Application extends Controller {
 
@@ -42,17 +41,17 @@ object Application extends Controller {
     }
   }
 
-  def baz = Action { implicit req =>
-    Ok(Credentials.all().mkString("List(", ", ", ")"))
-  }
-
-  def auth(username: String) = Action { implicit req =>
-    Ok(Credentials.auth(username).mkString)
-  }
-
-  def authAdd(username: String, passwd: String) = Action { implicit req =>
-    Credentials.create(username, passwd)
-    Redirect(routes.Application.baz)
-  }
+  //  def baz = Action { implicit req =>
+  //    Ok(Credentials.all().mkString("List(", ", ", ")"))
+  //  }
+  //
+  //  def auth(username: String) = Action { implicit req =>
+  //    Ok(Credentials.auth(username).mkString)
+  //  }
+  //
+  //  def authAdd(username: String, passwd: String) = Action { implicit req =>
+  //    Credentials.create(username, passwd)
+  //    Redirect(routes.Application.baz)
+  //  }
 
 }
