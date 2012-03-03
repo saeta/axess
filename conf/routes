@@ -11,6 +11,8 @@ GET     /creds                      controllers.CredentialsController.all
 POST    /creds/new                  controllers.CredentialsController.newAuth
 POST    /creds/delete               controllers.CredentialsController.delete(id: Long)
 GET     /sites                      controllers.SiteController.all
+GET     /sites/new                  controllers.SiteController.newSiteGet
+POST    /sites/new                  controllers.SiteController.newSitePost
 POST    /sites/delete               controllers.SiteController.delete(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path

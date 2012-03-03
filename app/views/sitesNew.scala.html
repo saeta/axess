@@ -1,0 +1,56 @@
+@(frm: Form[(String, String, String, String)])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("New Authentication Username/Password Combo") {
+
+<header class="jumbotron">
+  <div class="page-header">
+    <h1>Add a new Site!</h1>
+  </div>
+</header>
+<section id="add">
+
+  <div class="row">
+  <div class="span4">
+    <h2> About </h2>
+
+    <p> A set of credentials is used to create a <a href="routes.SitesController.all">site</a>. </p>
+
+    <div class="alert">
+      <strong>Warning!</strong> Passwords are stored <i>unencrypted</i>. Do NOT use secure passwords!
+    </div>
+    
+  </div>
+  <div class="span8">
+    <h2>Add new credentials</h2>
+    <div>
+    @form(routes.CredentialsController.newAuth, 'class -> "form-horizontal well") {
+      <fieldset>
+      @helper.inputText(frm("tag"), '_label->"Login Username", 
+          'placeholder -> "foo@example.com")
+    
+      @helper.inputText(frm("username"), '_label->"Login Password",
+          'placeholder -> "letmein")
+      
+      @helper.inputText(frm("password"), '_label->"Description",
+          'placeholder -> "Description...")
+          
+      @helper.inputText(frm("home"), '_label->"Description",
+          'placeholder -> "Description...")
+
+      <div class="form-actions">      
+        <input type="submit" class="btn btn-primary" value="Create" />
+        <a href="@routes.CredentialsController.all"><button class="btn">Cancel</button></a>
+      </div> 
+      </fieldset>
+    }
+    </div>
+  </div> <!-- div / span 8 -->
+  </div> <!-- div / row -->
+  </div>
+  </div>
+</section>
+
+}
