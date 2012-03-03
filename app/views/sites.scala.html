@@ -7,7 +7,7 @@
 
 <header class="jumbotron">
   <div class="page-header">
-    <h1>Add a new Authentication User/Pass Combo</h1>
+    <h1>Known Sites</h1>
   </div>
 </header>
 <section id="sites">
@@ -17,7 +17,27 @@
   <div class="span4">
     <h2> About </h2>
 
-    <p> Below are the websites that can be scanned </p>
+    <p> Here are the sites that can be scanned. </p>
+    
+    <p> A <i>site</i> includes:</p>
+    <dl>
+      <dt>Tag*</dt><dd>A short human readable tag</dd>
+      <dt>Username*</dt><dd>The login name</dd>
+      <dt>Password*</dt><dd>The login password</dd>
+      <dt>Home*</dt><dd>Home URL (this is the URL the scans starts at)</dd>
+      <dt>Type*</dt><dd>This indicates the type of site this is. This is the 
+        fully-qualified Java <code>class</code> name.</dd>
+      <dt>Description</dt><dd>A human readible description</dd>
+    </dl>
+    <p>Items with asterisks are required. The <b>Type</b> is guessed from known 
+    websites, although there is no scanning to find the first scanner. Any of
+    these values can be edited from the edit page for a site.</p>
+    
+    <p> Add a website to Axess to scan it. </p>
+    
+    <div class="alert alert-error">
+      <strong>Warning!</strong> Passwords are stored in <i>clear text</i>! Do <strong>NOT</strong> use secure passwords!
+    </div>
     
     <p><a class="btn btn-primary" href="@routes.SiteController.newSiteGet">New Site</a></p>
   </div>
@@ -29,10 +49,10 @@
         <tr>
           <td>Tag</td>
           <td>Username</td>
-          <td>Password</td>
           <td>Home</td>
           <td>Delete</td>
           <td>Scan</td>
+          <td>Edit</td>
         </tr>
       </thead>
       <tbody>
@@ -40,16 +60,23 @@
           <tr>
             <td>@site.tag</td>
             <td>@site.usr</td>
-            <td>@site.pwd</td>
             <td>@site.home</td>
             <td>
+            <!-- TODO: insert modal popup for confirmation -->
               @form(routes.SiteController.delete(site.id)) {
                   <input type="submit" class="btn btn-danger btn-mini" value="Delete" />
               }
             </td>
             <td>
+            <!-- TODO: route to appropriate scan location -->
               @form(routes.SiteController.delete(site.id)) {
                   <input type="submit" class="btn btn-success btn-mini" value="Scan" />
+              }
+            </td>
+            <td>
+            <!-- TODO: route to appropriate edit location -->
+              @form(routes.SiteController.delete(site.id)) {
+                  <input type="submit" class="btn btn-primary btn-mini" value="Edit" />
               }
             </td>
           </tr>

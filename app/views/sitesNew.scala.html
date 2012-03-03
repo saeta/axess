@@ -16,7 +16,7 @@
   <div class="span4">
     <h2> About </h2>
 
-    <p> A set of credentials is used to create a <a href="routes.SitesController.all">site</a>. </p>
+    <p> A set of credentials is used to create a <a href="@routes.SiteController.all">site</a>. </p>
 
     <div class="alert">
       <strong>Warning!</strong> Passwords are stored <i>unencrypted</i>. Do NOT use secure passwords!
@@ -26,19 +26,19 @@
   <div class="span8">
     <h2>Add new credentials</h2>
     <div>
-    @form(routes.SiteController.newSiteGet, 'class -> "form-horizontal well") {
+    @form(routes.SiteController.newSitePost, 'class -> "form-vertical well") {
       <fieldset>
-      @helper.inputText(frm("tag"), '_label->"Login Username", 
-          'placeholder -> "foo@example.com")
+      @helper.inputText(frm("tag"), '_label->"Tag", 
+          'placeholder -> "main", '_help -> "A short, descriptive name")
     
-      @helper.inputText(frm("username"), '_label->"Login Password",
-          'placeholder -> "letmein")
+      @helper.inputText(frm("username"), '_label->"Login Username",
+          'placeholder -> "foo@example.com")
       
-      @helper.inputText(frm("password"), '_label->"Description",
-          'placeholder -> "Description...")
+      @helper.inputText(frm("password"), '_label->"Login Password",
+          'placeholder -> "letmein")
           
-      @helper.inputText(frm("home"), '_label->"Description",
-          'placeholder -> "Description...")
+      @helper.inputText(frm("home"), '_label->"Home Page (url)",
+          'placeholder -> "http://www.example.com/")
 
       <div class="form-actions">      
         <input type="submit" class="btn btn-primary" value="Create" />
