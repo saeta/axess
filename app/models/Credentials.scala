@@ -5,9 +5,6 @@ import anorm.SqlParser._
 import play.api.db._
 import play.api.Play.current
 
-/**
- * TODO: include description field, and perhaps an ID
- */
 case class Credentials(id: Long, username: String, password: String, desc: String)
 
 object Credentials {

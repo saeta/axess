@@ -1,0 +1,65 @@
+@(sites: List[Site])
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@main("New Authentication Username/Password Combo") {
+
+<header class="jumbotron">
+  <div class="page-header">
+    <h1>Add a new Authentication User/Pass Combo</h1>
+  </div>
+</header>
+<section id="sites">
+
+  <div class="row">
+  
+  <div class="span4">
+    <h2> About </h2>
+
+    <p> Below are the websites that can be scanned </p>
+    
+    <p> Create a new site: Click here TODO!</p>
+  </div>
+  <div class="span8">
+  
+    <h2>Websites (Sites)</h2>
+    <table class="table table-bordered table-striped table-condensed">
+      <thead>
+        <tr>
+          <td>Tag</td>
+          <td>Username</td>
+          <td>Password</td>
+          <td>Home</td>
+          <td>Delete</td>
+          <td>Scan</td>
+        </tr>
+      </thead>
+      <tbody>
+        @sites.map { site =>
+          <tr>
+            <td>@site.tag</td>
+            <td>@site.usr</td>
+            <td>@site.pwd</td>
+            <td>@site.home</td>
+            <td>
+              @form(routes.SiteController.delete(site.id)) {
+                  <input type="submit" class="btn btn-danger btn-mini" value="Delete" />
+              }
+            </td>
+            <td>
+              @form(routes.SiteController.delete(site.id)) {
+                  <input type="submit" class="btn btn-success btn-mini" value="Scan" />
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  </div> <!-- div / row -->
+  </div>
+  </div>
+</section>
+
+}

@@ -4,10 +4,11 @@
 
 CREATE TABLE Sites (
   id SERIAL NOT NULL PRIMARY KEY, -- pk
+  tag VARCHAR(50) NOT NULL, -- short human-readable tag
   username VARCHAR(100) NOT NULL, -- login info
-  passwd VARCHAR(100) NOT NULL,
+  password VARCHAR(100) NOT NULL,
   home VARCHAR(100) NOT NULL, -- home page url
-  type VARCHAR(1000) NOT NULL, -- Class name for site
+  type VARCHAR(1000), -- Class name for site
   dsc VARCHAR(1000) -- description
 );
 
