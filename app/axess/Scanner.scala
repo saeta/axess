@@ -9,12 +9,12 @@ import org.openqa.selenium.WebDriver
 import org.openqa.selenium.By
 import models.CourseraSite
 import models.Credentials
-import models.Site
+import models.SiteType
 import scala.collection.JavaConversions._
 
 class Scanner extends Actor {
   var browser: WebDriver = _
-  var site: Site = _
+  var site: SiteType = _
   val checkers = List()
 
   override def preStart() {
