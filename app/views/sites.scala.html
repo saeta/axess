@@ -69,7 +69,7 @@
             </td>
             <td>
             <!-- TODO: route to appropriate scan location -->
-              @form(routes.SiteController.delete(site.id)) {
+              @form(routes.ScanController.start(site.id)) {
                   <input type="submit" class="btn btn-success btn-mini @if(!site.scannable) {disabled}" @if(!site.scannable) {disabled="disabled" title="@site.reason"} value="Scan" />
               }
             </td>
