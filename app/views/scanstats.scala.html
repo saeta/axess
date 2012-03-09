@@ -2,18 +2,21 @@
 
 @main("Statistics for Scan", refresh = true) {
 
-  <h1>Progress for @site.tag</h1>
+<header class="jumbotron">
+  <div class="page-header">
+    <h1>Progress for @site.tag</h1>
+  </div>
+</header>
 
+<section>
   <div class="row">
     <div class="span4">
       @if(justStarted) {
-      <div class="alert alert-success">
-        Scan started!
-      </div>
+      <div class="alert alert-success">Scan started!</div>
       }
       <h2>Scanning...</h2>
       <div class="progress">
-        <div class = "bar" style="width: @stats.percentDone%;"></div>
+        <div class="bar" style="width: @stats.percentDone%;"></div>
       </div>
     </div>
     <div class="span8">
@@ -35,5 +38,5 @@
       </table>
     </div>
   </div>
-
+</section>
 }

@@ -24,7 +24,7 @@ abstract class SiteType {
 class CourseraSite extends SiteType {
   def login(driver: WebDriver) {
     driver.get(site.home)
-    driver.findElement(By.linkText("Coursera Login")).click()
+    driver.findElement(By.partialLinkText("Login")).click()
 
     driver.findElement(By.name("email")).sendKeys(site.usr)
     driver.findElement(By.name("password")).sendKeys(site.pwd)
