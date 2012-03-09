@@ -54,7 +54,9 @@ object ScanController extends Controller {
           } else {
             AsyncResult {
               (axess ? StatsRequest(id)).mapTo[StatsResponse].asPromise.map {
-                sr => Ok(sr.mkString)
+                sr =>
+                  val s = Site.getSite(scan.siteId).get
+                  Ok(views.html.scanstats(sr, s))
               }
             }
           }
@@ -64,7 +66,15 @@ object ScanController extends Controller {
 
   def results(id: Long) = Action {
     // TODO: display scan results
-    Ok("Scan results!")
+    Scan.getScan(id) match {
+      case None => BadRequest("Unknown scan!")
+      case Some(scan) =>
+        Site.getSite(scan.siteId) match {
+          case None => BadRequest("Unknown site!")
+          case Some(site) =>
+            Ok(views.html.scanResults(site, scan, ScanMsg.all(scan.id)))
+        }
+    }
   }
 
 }

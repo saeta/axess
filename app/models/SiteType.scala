@@ -33,6 +33,5 @@ class CourseraSite extends SiteType {
     driver.findElement(By.linkText("here")).click()
   }
 
-  def inSite(url: String) = url != null &&
-    url.contains("www.coursera.org") && url.contains("playspace")
+  def inSite(url: String) = url != null && url.contains(site.home)
 }

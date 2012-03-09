@@ -7,14 +7,10 @@ import akka.actor.ActorRef
 case class StartScan(siteId: Long)
 case class ScanStarted(scanId: Long)
 case object AxessStatsQuery
-case class AxessStats(queueLength: Int) {
-  def mkString = "queue length: %d".format(queueLength)
-}
+case class AxessStats(queueLength: Int)
 case class StatsRequest(scanId: Long)
 case class StatsResponse(numSeen: Int, numDone: Int, as: AxessStats) {
-  def mkString =
-    "Stats Response: seen: %d, done: %s, AS: %s".format(
-      numSeen, numDone, as.mkString)
+  def percentDone = ((numDone.toDouble / numSeen.toDouble) * 10).toInt * 10
 }
 case object BadStatsRequest
 
