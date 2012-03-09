@@ -40,7 +40,6 @@ object ScanController extends Controller {
     }
   }
 
-  // TODO: have this simply refresh
   def status(id: Long) = Action { implicit request =>
     val started = flash.get("started").getOrElse("n") == "y"
     val scanOption = Scan.getScan(id)
@@ -48,7 +47,7 @@ object ScanController extends Controller {
       case None => BadRequest
       case Some(scan) =>
         if (scan.finished) {
-          Ok("Scan done!")
+          Redirect(routes.ScanController.results(id))
         } else {
           if (started) {
             Ok("Scan Started!")
@@ -62,8 +61,6 @@ object ScanController extends Controller {
         }
     }
   }
-
-  def statusApi(id: Long) = TODO
 
   def results(id: Long) = Action {
     // TODO: display scan results
