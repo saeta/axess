@@ -13,12 +13,16 @@ import models.Scan
 class ScanManager extends Actor {
 
   val NUM_WORKERS = 10
+  // Escalate everything up to axess which will take care of any issues by
+  // restarting this whole ScanManager tree
   val escalator = AllForOneStrategy() {
     case _: Exception => Escalate
   }
   val workers = context.actorOf(Props[Worker].withRouter(
     RoundRobinRouter(NUM_WORKERS, supervisorStrategy = escalator)),
     name = "workerRouter")
+
+  override def supervisorStrategy = escalator
 
   override def postStop = curScan match {
     case None => true
