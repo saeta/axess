@@ -3,7 +3,7 @@
 # --- !Ups
 
 CREATE TABLE Sites (
-  id SERIAL NOT NULL PRIMARY KEY, -- pk
+  id MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY, -- pk
   tag VARCHAR(50) NOT NULL, -- short human-readable tag
   username VARCHAR(100) NOT NULL, -- login info
   password VARCHAR(100) NOT NULL,

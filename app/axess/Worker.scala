@@ -6,6 +6,7 @@ import akka.routing.RoundRobinRouter
 import akka.actor.Props
 import org.openqa.selenium.htmlunit.HtmlUnitDriver
 import org.openqa.selenium.WebDriver
+import org.openqa.selenium.WebElement
 import org.openqa.selenium.By
 import models.CourseraSite
 import models.SiteType
@@ -20,8 +21,11 @@ class Worker extends Actor {
 
   def scanPage(url: String) = {
     browser.get(url)
-    val f = browser.findElements(By.tagName("a")).map(
-      _.getAttribute("href")).map(makeCanonical(url, _)).filter(siteType.inSite(_)).toSet
+    if (siteType == null) throw new RuntimeException("Help!")
+    val f = browser.findElements(By.tagName("a")).toSet.map{
+      e: WebElement => e.getAttribute("href")}.map(
+      s => makeCanonical(url, s)).filter(
+      s => siteType.inSite(s))
     sender ! NewUrls(f)
   }
 
@@ -37,13 +41,15 @@ class Worker extends Actor {
 
   def login(site: Site) = {
     browser.manage().deleteAllCookies()
-    val s = Class.forName(site.stype.get).newInstance().asInstanceOf[SiteType]
+//    val s = Class.forName(site.stype.get).newInstance().asInstanceOf[SiteType]
+    val s = new CourseraSite()
     s.configure(site)
     siteType = s
     siteType.login(browser)
   }
 
-  def makeCanonical(curPage: String, linkText: String): String = "TODO" // TODO
+  // TODO: make it work on relative links!
+  def makeCanonical(curPage: String, linkText: String): String = linkText
 
   def receive = {
     case ScanPage(url) =>

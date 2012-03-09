@@ -27,10 +27,7 @@ class Axess extends Actor {
     val managerSeq = for (i <- 0 until NUM_MANAGERS)
       yield context.actorOf(Props[ScanManager], "manager-%d".format(i))
     managers ++= managerSeq
-  }
-
-  override def postStop = {
-    // TODO: error out all the current in progress scans
+    // TODO: consider marking as failed all current ongoing scans.
   }
 
   /**
@@ -99,6 +96,14 @@ class Axess extends Actor {
     case ScanError(_) => throw new RuntimeException("Scan error!") // TODO
     case ScanComplete(scanId) =>
       completeScan(scanId)
+    case StatsRequest(scanId) =>
+      if (scanMap.contains(scanId)) {
+        scanMap(scanId) ! ScanStatsRequest(sender)
+      } else {
+        sender ! BadStatsRequest
+      }
+    case ScanStatsResult(seen, done, resp) =>
+      resp ! StatsResponse(seen, done, stats)
   }
 
 }

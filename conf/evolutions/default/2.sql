@@ -2,7 +2,7 @@
 
 # --- !Ups
 CREATE TABLE Scan (
-  id SERIAL NOT NULL PRIMARY KEY, -- pk
+  id MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY, -- pk
   siteId INT NOT NULL, -- id in Sites table (consider index)
   started BOOLEAN NOT NULL DEFAULT FALSE,
   finished BOOLEAN NOT NULL DEFAULT FALSE,
@@ -11,7 +11,7 @@ CREATE TABLE Scan (
 );
 
 CREATE TABLE ScanMsg (
-  id SERIAL NOT NULL PRIMARY KEY, -- pk
+  id MEDIUMINT NOT NULL AUTO_INCREMENT PRIMARY KEY, -- pk
   scanId INT NOT NULL, -- id in the Scan table above
   tag VARCHAR(400) NOT NULL,
   url VARCHAR(500) NOT NULL,

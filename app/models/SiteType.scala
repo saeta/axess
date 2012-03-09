@@ -23,8 +23,8 @@ abstract class SiteType {
  */
 class CourseraSite extends SiteType {
   def login(driver: WebDriver) {
-    driver.get("https://www.coursera.org/" + site)
-    driver.findElement(By.id("login_normal")).click()
+    driver.get(site.home)
+    driver.findElement(By.linkText("Coursera Login")).click()
 
     driver.findElement(By.name("email")).sendKeys(site.usr)
     driver.findElement(By.name("password")).sendKeys(site.pwd)
@@ -33,5 +33,6 @@ class CourseraSite extends SiteType {
     driver.findElement(By.linkText("here")).click()
   }
 
-  def inSite(url: String) = url.contains("www.coursera.org") && url.contains(site)
+  def inSite(url: String) = url != null &&
+    url.contains("www.coursera.org") && url.contains("playspace")
 }

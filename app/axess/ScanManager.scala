@@ -1,22 +1,30 @@
 package axess
 
 import akka.actor._
+import akka.actor.SupervisorStrategy._
 import akka.pattern._
 import akka.util.duration._
 import akka.util.Timeout
 import akka.routing.RoundRobinRouter
 import akka.routing.Broadcast
 import models.ScanMsg
+import models.Scan
 
 class ScanManager extends Actor {
 
   val NUM_WORKERS = 10
-  val workers = context.actorOf(Props[Worker].withRouter(RoundRobinRouter(NUM_WORKERS)),
+  val escalator = AllForOneStrategy() {
+    case _: Exception => Escalate
+  }
+  val workers = context.actorOf(Props[Worker].withRouter(
+    RoundRobinRouter(NUM_WORKERS, supervisorStrategy = escalator)),
     name = "workerRouter")
 
   override def postStop = curScan match {
     case None => true
-    case Some(site) => context.parent ! ScanError(site)
+    case Some(site) =>
+      context.parent ! ScanError(site)
+      Scan.error(site.scanId, "Unknown error. Stopped while scanning.")
   }
 
   /** Current site we're scanning. */
@@ -30,6 +38,7 @@ class ScanManager extends Actor {
     case None => throw new RuntimeException("oops")
     case Some(scan) => {
       if (pagesEncountered.size == pagesScanned.size && pagesScanned.size > 0) {
+        Scan.finish(scan.scanId)
         context.parent ! ScanComplete(scan.scanId)
       }
     }
@@ -76,5 +85,7 @@ class ScanManager extends Actor {
     case s: ScanSite => scanSite(s)
     case r: PageScanResult => pageResult(r)
     case n: NewUrls => newUrls(n)
+    case ScanStatsRequest(resp) =>
+      sender ! ScanStatsResult(pagesEncountered.size, pagesScanned.size, resp)
   }
 }

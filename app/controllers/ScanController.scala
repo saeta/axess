@@ -40,18 +40,33 @@ object ScanController extends Controller {
     }
   }
 
+  // TODO: have this simply refresh
   def status(id: Long) = Action { implicit request =>
     val started = flash.get("started").getOrElse("n") == "y"
-    if (started) {
-      Ok("Scan Started")
-    } else {
-      Ok("Scan not started...")
+    val scanOption = Scan.getScan(id)
+    scanOption match {
+      case None => BadRequest
+      case Some(scan) =>
+        if (scan.finished) {
+          Ok("Scan done!")
+        } else {
+          if (started) {
+            Ok("Scan Started!")
+          } else {
+            AsyncResult {
+              (axess ? StatsRequest(id)).mapTo[StatsResponse].asPromise.map {
+                sr => Ok(sr.mkString)
+              }
+            }
+          }
+        }
     }
   }
 
   def statusApi(id: Long) = TODO
 
   def results(id: Long) = Action {
+    // TODO: display scan results
     Ok("Scan results!")
   }
 

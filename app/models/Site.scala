@@ -5,7 +5,6 @@ import anorm.SqlParser._
 import play.api.db._
 import play.api.Play.current
 
-// TODO: handle nulls!
 case class Site(id: Long, tag: String, usr: String, pwd: String, home: String,
   stype: Option[String], dsc: Option[String]) {
   def scannable = stype != None
@@ -40,7 +39,7 @@ object Site {
         'pwd -> pwd,
         'home -> home,
         'tag -> tag).executeUpdate()
-      SQL("SELECT id FROM Sites WHERE tag={tag}, username={usr}, password={pwd}, home={home}").on(
+      SQL("SELECT max(id) FROM Sites WHERE tag={tag} AND username={usr} AND password={pwd} AND home={home}").on(
         'tag -> tag,
         'usr -> usr,
         'pwd -> pwd,
