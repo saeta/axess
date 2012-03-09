@@ -11,6 +11,8 @@
  - Checkers
  - View past scans
 
+ - Try and scan in-video quizzes.
+
 # Things to do! #
 
  - Move to multi-project set up with interface for `Site` defined in a separate file (also `Checker`)
