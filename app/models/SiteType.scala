@@ -5,7 +5,10 @@ import org.openqa.selenium.By
 /**
  * Configuration for a site.
  */
-abstract class SiteType(site: Site) {
+abstract class SiteType {
+  var site: Site = _
+  def configure(s: Site) = site = s
+
   /**
    * Log in to a website using the given username and password
    */
@@ -18,7 +21,7 @@ abstract class SiteType(site: Site) {
 /**
  *
  */
-class CourseraSite(site: Site) extends SiteType(site) {
+class CourseraSite extends SiteType {
   def login(driver: WebDriver) {
     driver.get("https://www.coursera.org/" + site)
     driver.findElement(By.id("login_normal")).click()

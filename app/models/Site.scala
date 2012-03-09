@@ -40,6 +40,11 @@ object Site {
         'pwd -> pwd,
         'home -> home,
         'tag -> tag).executeUpdate()
+      SQL("SELECT id FROM Sites WHERE tag={tag}, username={usr}, password={pwd}, home={home}").on(
+        'tag -> tag,
+        'usr -> usr,
+        'pwd -> pwd,
+        'home -> home).as(scalar[Long].single)
     }
 
   def delete(id: Long) = DB.withConnection { implicit c =>
@@ -59,6 +64,10 @@ object Site {
       'home -> s.home,
       'typ -> s.stype,
       'dsc -> s.dsc).executeUpdate()
+  }
+
+  def siteTypes() = DB.withConnection { implicit c =>
+    SQL("SELECT UNIQUE type FROM Sites")().map(row => row[String]("type")).toList
   }
 
 }

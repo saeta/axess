@@ -12,6 +12,7 @@ GET     /sites/edit/:id             controllers.SiteController.edit(id: Long)
 POST    /sites/edit/:id             controllers.SiteController.save(id: Long)
 POST    /scan/start                 controllers.ScanController.start(id: Long)
 GET     /scan/status                controllers.ScanController.status(id: Long)
+GET     /scan/statusapi             controllers.ScanController.statusApi(id: Long)
 GET     /scan/results/:id           controllers.ScanController.results(id: Long)
 
 # Map static resources from the /public folder to the /assets URL path
