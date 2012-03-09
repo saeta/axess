@@ -49,15 +49,11 @@ object ScanController extends Controller {
         if (scan.finished) {
           Redirect(routes.ScanController.results(id))
         } else {
-          if (started) {
-            Ok("Scan Started!")
-          } else {
-            AsyncResult {
-              (axess ? StatsRequest(id)).mapTo[StatsResponse].asPromise.map {
-                sr =>
-                  val s = Site.getSite(scan.siteId).get
-                  Ok(views.html.scanstats(sr, s))
-              }
+          AsyncResult {
+            (axess ? StatsRequest(id)).mapTo[StatsResponse].asPromise.map {
+              sr =>
+                val s = Site.getSite(scan.siteId).get
+                Ok(views.html.scanstats(sr, s, started))
             }
           }
         }
