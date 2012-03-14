@@ -1,11 +1,5 @@
 # High Priorities #
 
- - When started up, mark all scans that aren't completed already as error'd
- - Store Page Title in ScanMsg for more readable display
- - Keep track of number of pages scanned in Scan db entry
- - Keep track of start & end times for scan in DB
- - See if the number of pages can be slimmed down. 
-   (e.g. ignore everything after #)
  - Test more!
  - Have default landing page be useful!
  - Checkers

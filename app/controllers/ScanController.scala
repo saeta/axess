@@ -18,7 +18,7 @@ object ScanController extends Controller {
 
   val system = ActorSystem("axess")
   val axess = system.actorOf(Props[Axess], "axess")
-  implicit val timeout = Timeout(1000 milliseconds)
+  implicit val timeout = Timeout(5000 milliseconds)
 
   def start(id: Long) = Action {
     Site.getSite(id) match {

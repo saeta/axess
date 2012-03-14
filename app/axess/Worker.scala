@@ -22,10 +22,11 @@ class Worker extends Actor {
   def scanPage(url: String) = {
     browser.get(url)
     if (siteType == null) throw new RuntimeException("Help!")
-    val f = browser.findElements(By.tagName("a")).toSet.map{
-      e: WebElement => e.getAttribute("href")}.map(
+    val f = browser.findElements(By.tagName("a")).toSet.map {
+      e: WebElement => e.getAttribute("href")
+    }.map(
       s => makeCanonical(url, s)).filter(
-      s => siteType.inSite(s))
+        s => siteType.inSite(s))
     sender ! NewUrls(f)
   }
 
@@ -36,12 +37,12 @@ class Worker extends Actor {
     } yield {
       PageNote(chk.category, msgs)
     }
-    sender ! PageScanResult(url, list)
+    sender ! PageScanResult(url, browser.getTitle(), list)
   }
 
   def login(site: Site) = {
     browser.manage().deleteAllCookies()
-//    val s = Class.forName(site.stype.get).newInstance().asInstanceOf[SiteType]
+    //    val s = Class.forName(site.stype.get).newInstance().asInstanceOf[SiteType]
     val s = new CourseraSite()
     s.configure(site)
     siteType = s
@@ -49,7 +50,13 @@ class Worker extends Actor {
   }
 
   // TODO: make it work on relative links!
-  def makeCanonical(curPage: String, linkText: String): String = linkText
+  def makeCanonical(curPage: String, linkText: String): String = {
+    if (linkText.contains("#")) {
+      linkText.split("#")(0)
+    } else {
+      linkText
+    }
+  }
 
   def receive = {
     case ScanPage(url) =>

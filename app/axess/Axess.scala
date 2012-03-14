@@ -9,14 +9,18 @@ import akka.actor.ActorRef
 import akka.actor.OneForOneStrategy
 import akka.util.duration._
 import akka.actor.SupervisorStrategy._
+import akka.event.Logging
 import axess._
 
 class Axess extends Actor {
-  val NUM_MANAGERS = 5
+  val log = Logging(context.system, this)
 
-  val scanQueue = new scala.collection.mutable.Queue[Long]()
+  val NUM_MANAGERS = 2
+
+  val scanQueue = scala.collection.mutable.Queue[Long]()
   val managers = scala.collection.mutable.Set[ActorRef]()
-  val scanMap = new scala.collection.mutable.HashMap[Long, ActorRef]()
+  val scanMap = scala.collection.mutable.Map[Long, ActorRef]()
+  val freeSet = scala.collection.mutable.Set[ActorRef]()
 
   override val supervisorStrategy = OneForOneStrategy(maxNrOfRetries = 3,
     withinTimeRange = 5 seconds) {
@@ -27,21 +31,19 @@ class Axess extends Actor {
     val managerSeq = for (i <- 0 until NUM_MANAGERS)
       yield context.actorOf(Props[ScanManager], "manager-%d".format(i))
     managers ++= managerSeq
-    // TODO: consider marking as failed all current ongoing scans.
+    freeSet ++= managerSeq
+    val numErroredOut = Scan.errorAllUnterminatedScans()
+    if (numErroredOut > 0) {
+      log.warning("{} Scans errored out on boot", numErroredOut)
+    }
   }
 
   /**
    * Reply with stats on how things are going.
    */
   def stats = {
-    AxessStats(scanQueue.length)
+    AxessStats(scanQueue.length, freeSet.size, scanMap.size)
   }
-
-  /** Busy Managers */
-  def busy = Set() ++ scanMap.values
-  /** Not busy managers */
-  def notBusy = (Set() ++ managers) -- busy
-
   /**
    * Gets a site given a scanId
    */
@@ -58,7 +60,7 @@ class Axess extends Actor {
     // There must be (1) an available worker, and (2) something in the queue
     if (scanMap.size < NUM_MANAGERS && scanQueue.size > 0) {
       // Find a manager
-      val manager = notBusy.head
+      val manager = freeSet.head
       // Find a site we need to scan. (In a loop to handle option edge cases)
       var notFound = true
       while (notFound) {
@@ -69,6 +71,7 @@ class Axess extends Actor {
           case Some(site) => {
             notFound = false
             scanMap(scanId) = manager
+            freeSet -= manager
             manager ! ScanSite(scanId, site)
           }
         }
@@ -78,9 +81,27 @@ class Axess extends Actor {
 
   def completeScan(id: Long): Unit = {
     if (scanMap.contains(id)) {
-      scanMap.remove(id)
+      val actorRef = scanMap.remove(id)
+      actorRef match {
+        case None =>
+        case Some(ar) =>
+          freeSet += ar
+      }
     }
     startScanFromQueue()
+  }
+
+  def DEBUG_MANAGER_BUSY(mg: ManagerBusy) = {
+    val scanId = mg.scanSite.scanId
+    val scanManager = scanMap(scanId)
+    println("Manager BUSY!")
+    log.error("Worker busy error! SentTo: {},  Scan: {}, In Free Set: {}",
+      scanManager, scanId, freeSet.contains(scanManager))
+  }
+
+  def DEBUG_SCAN_ERROR(se: ScanError) = {
+    log.error("SCAN ERROR! {}", se)
+    Scan.error(se.s.scanId, "Scan Error. Cause Unknown")
   }
 
   def receive() = {
@@ -92,8 +113,8 @@ class Axess extends Actor {
     }
     case AxessStatsQuery =>
       sender ! stats
-    case ManagerBusy(_) => throw new RuntimeException("Worker busy! Oops!") // TODO
-    case ScanError(_) => throw new RuntimeException("Scan error!") // TODO
+    case mb: ManagerBusy => DEBUG_MANAGER_BUSY(mb)
+    case se: ScanError => DEBUG_SCAN_ERROR(se)
     case ScanComplete(scanId) =>
       completeScan(scanId)
     case StatsRequest(scanId) =>

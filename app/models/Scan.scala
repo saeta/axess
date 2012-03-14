@@ -4,20 +4,29 @@ import anorm._
 import anorm.SqlParser._
 import play.api.db._
 import play.api.Play.current
+import java.util.Date
 
-case class Scan(id: Long, siteId: Long, started: Boolean, finished: Boolean,
-  error: Boolean, errorMsg: Option[String])
+case class Scan(id: Long, siteId: Long, startTime: Option[Date],
+  endTime: Option[Date], error: Boolean, errorMsg: Option[String],
+  pagesFound: Long, pagesScanned: Long) {
+  def finished = endTime != None
+  def started = startTime != None
+}
 
 object Scan {
   val scan = {
     long("id") ~
       long("siteId") ~
-      bool("started") ~
-      bool("finished") ~
+      get[Option[Date]]("start_time") ~
+      get[Option[Date]]("end_time") ~
       bool("error") ~
-      get[Option[String]]("errorMsg") map {
-        case id ~ siteId ~ started ~ finished ~ error ~ errorMsg =>
-          Scan(id, siteId, started, finished, error, errorMsg)
+      get[Option[String]]("errorMsg") ~
+      long("pagesFound") ~
+      long("pagesScanned") map {
+        case id ~ siteId ~ start_time ~ end_time ~ error ~
+          errorMsg ~ pagesFound ~ pagesScanned =>
+          Scan(id, siteId, start_time, end_time, error, errorMsg, pagesFound,
+            pagesScanned)
       }
   }
 
@@ -37,16 +46,35 @@ object Scan {
   }
 
   def start(id: Long) = DB.withConnection { implicit c =>
-    SQL("UPDATE Scan SET started=true WHERE id={id}").on('id -> id).executeUpdate() == 1
+    SQL("UPDATE Scan SET start_time=NOW() WHERE id={id}").on('id -> id).executeUpdate() == 1
   }
 
   def finish(id: Long) = DB.withConnection { implicit c =>
-    SQL("UPDATE Scan SET finished=true WHERE id={id}").on('id -> id).executeUpdate() == 1
+    SQL("UPDATE Scan SET end_time=NOW() WHERE id={id}").on('id -> id).executeUpdate() == 1
   }
 
   def error(id: Long, msg: String) = DB.withConnection { implicit c =>
-    SQL("UPDATE Scan SET error=true, errorMsg={msg} WHERE id = {id}").on(
+    SQL("UPDATE Scan SET end_time=NOW(), error=true, errorMsg={msg} WHERE id = {id}").on(
       'id -> id,
       'msg -> msg).executeUpdate() == 1
+  }
+
+  def updateScanStats(id: Long, pagesFound: Long, pagesScanned: Long) = DB.withConnection {
+    implicit c =>
+      SQL("""
+          UPDATE Scan 
+             SET pagesFound={pagesFound}, pagesScanned={pagesScanned} 
+           WHERE id={id}""").on(
+        'pagesFound -> pagesFound,
+        'pagesScanned -> pagesScanned,
+        'id -> id).executeUpdate() == 1
+  }
+
+  def errorAllUnterminatedScans() = DB.withConnection { implicit c =>
+    SQL("""
+        UPDATE Scan 
+           SET error=true, 
+               errorMsg='Terminated on boot' 
+         WHERE end_time IS NULL""").executeUpdate()
   }
 }

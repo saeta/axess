@@ -19,6 +19,10 @@
             <td>@msgs.size</td>
           </tr>
           <tr>
+            <td>Started</td>
+            <td>@if(scan.started) {<i class="icon-ok-sign"></i>} else {<i class="icon-exclamation-sign"></i>}</td>
+          </tr>
+          <tr>
             <td>Finished:</td>
             <td>@if(scan.finished) {<i class="icon-ok-sign"></i>} else {<i class="icon-exclamation-sign"></i>}</td>
           </tr>
