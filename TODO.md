@@ -1,5 +1,7 @@
 # High Priorities #
 
+ - Add pages scanned to DB if not prod for debugging purposes.
+
  - Test more!
  - Have default landing page be useful!
  - Checkers
