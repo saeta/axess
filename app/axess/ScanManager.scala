@@ -81,7 +81,11 @@ class ScanManager extends Actor {
     case Some(site) =>
       pagesScanned += r.url
       for (pageNote <- r.notes) {
-        ScanMsg.addMsg(site.scanId, pageNote.category, r.title, r.url, pageNote.msg)
+        ScanMsg.addMsg(site.scanId,
+          pageNote.category,
+          if (r.title == "") "<ERROR: no page title!>" else r.title,
+          r.url,
+          pageNote.msg)
       }
       sendDone()
   }
