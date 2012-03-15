@@ -21,6 +21,12 @@ CREATE TABLE ScanMsg (
   msg VARCHAR(1000) NOT NULL
 );
 
+-- Debugging info for determining which pages are scanned.
+CREATE TABLE ScanPage (
+  scanId INT NOT NULL, -- id in Scan table above
+  url VARCHAR(1000) NOT NULL
+);
+
 
 # --- !Downs
 DROP TABLE Scan;

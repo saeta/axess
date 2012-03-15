@@ -68,7 +68,7 @@ object ScanController extends Controller {
         Site.getSite(scan.siteId) match {
           case None => BadRequest("Unknown site!")
           case Some(site) =>
-            Ok(views.html.scanResults(site, scan, ScanMsg.all(scan.id)))
+            Ok(views.html.scanResults(site, scan, ScanMsg.numPagesWithIssues(scan.id), ScanMsg.numIssues(scan.id), ScanMsg.allGrouped(scan.id)))
         }
     }
   }

@@ -51,11 +51,17 @@ class Worker extends Actor {
 
   // TODO: make it work on relative links!
   def makeCanonical(curPage: String, linkText: String): String = {
-    if (linkText.contains("#")) {
+    if (linkText == null) null
+    else if (linkText.contains("#")) {
       linkText.split("#")(0)
     } else {
       linkText
     }
+    //    if (linkText.contains("#")) {
+    //      linkText.split("#")(0)
+    //    } else {
+    //      linkText
+    //    }
   }
 
   def receive = {

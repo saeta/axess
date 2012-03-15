@@ -21,8 +21,7 @@ class ScanManager extends Actor {
     case _: Exception => Escalate
   }
   val workers = context.actorOf(Props[Worker].withRouter(
-    RoundRobinRouter(NUM_WORKERS, supervisorStrategy = escalator)),
-    name = "workerRouter")
+    RoundRobinRouter(NUM_WORKERS, supervisorStrategy = escalator)))
 
   override def supervisorStrategy = escalator
 
@@ -96,6 +95,7 @@ class ScanManager extends Actor {
         if !pagesEncountered.contains(url)
       } {
         pagesEncountered += url
+        ScanMsg.foundPage(site.scanId, url)
         workers ! ScanPage(url)
       }
       sendDone()
