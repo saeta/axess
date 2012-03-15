@@ -61,7 +61,6 @@ object ScanController extends Controller {
   }
 
   def results(id: Long) = Action {
-    // TODO: display scan results
     Scan.getScan(id) match {
       case None => BadRequest("Unknown scan!")
       case Some(scan) =>
