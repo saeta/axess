@@ -121,7 +121,7 @@ class Axess extends Actor {
       if (scanMap.contains(scanId)) {
         scanMap(scanId) ! ScanStatsRequest(sender)
       } else {
-        sender ! BadStatsRequest
+        sender ! BadStatsRequest // TODO: fix me! Should say queue'd... or something
       }
     case ScanStatsResult(seen, done, resp) =>
       resp ! StatsResponse(seen, done, stats)
