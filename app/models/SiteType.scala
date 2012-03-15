@@ -33,5 +33,8 @@ class CourseraSite extends SiteType {
     driver.findElement(By.linkText("here")).click()
   }
 
-  def inSite(url: String) = url != null && url.contains(site.home)
+  def inSite(url: String) =
+    url != null &&
+      url.contains(site.home) &&
+      !url.contains("lecture/download")
 }
