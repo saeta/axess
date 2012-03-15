@@ -56,7 +56,7 @@ object ScanMsg {
       'sid -> scanId).as(scalar[Long].single))
 
   def allGrouped(scanId: Long) = DB.withConnection { implicit c =>
-    SQL("SELECT *, count(*) as cnt FROM ScanMsg WHERE scanId = {sid} GROUP BY msg").on(
+    SQL("SELECT *, count(*) as cnt FROM ScanMsg WHERE scanId = {sid} GROUP BY msg ORDER BY url").on(
       'sid -> scanId).as(scanMsgG *)
   }
 
