@@ -62,19 +62,16 @@
             <td>@site.usr</td>
             <td>@site.home</td>
             <td>
-            <!-- TODO: insert modal popup for confirmation -->
               @form(routes.SiteController.delete(site.id)) {
                   <input type="submit" class="btn btn-danger btn-mini" value="Delete" />
               }
             </td>
             <td>
-            <!-- TODO: route to appropriate scan location -->
               @form(routes.ScanController.start(site.id)) {
                   <input type="submit" class="btn btn-success btn-mini @if(!site.scannable) {disabled}" @if(!site.scannable) {disabled="disabled" title="@site.reason"} value="Scan" />
               }
             </td>
             <td>
-            <!-- TODO: route to appropriate edit location -->
               @form(routes.SiteController.edit(site.id)) {
                   <input type="submit" class="btn btn-primary btn-mini" value="Edit" />
               }
