@@ -2,6 +2,38 @@
 
 @main("Welcome to Play 2.0") {
     
-    @play20.welcome(message)
+    <header class="jumbotron">
+      <div class="page-header">
+        <h1>Axess <small>The Site-Scanner for Accessibility (and more)</small></h1>
+      </div>
+    </header>
+    <section id="welcome">
+      <div class="row">
+        <div class="span3">
+          <p>To scan a site, click <b>Sites</b> above.</p>
+          <p>To see past scan results, click <b>Scan Results</b></p>.
+        </div>
+        <div class="span6">
+          <p>Axess is the site scanner. It checks for accessibility violations,
+          and a few other validation errors.</p>
+          <p>Everything is organized around the concept of a <b>Site</b>. A
+          site consists of a <i>username</i>, <i>password</i>, a 
+          <i>home page</i>, and a couple other things.</p>
+          <p>A site can be scanned, and the scan results can be displayed.
+          To scan a site, go under the <i>Sites</i> link in the top navigation.
+          To view past site scan results, go under <i>Scan Results</i></p>
+          
+          <p>If you have feature requests, or would like something changed,
+          please do make a request.</p>
+        </div>
+        <div class="span3"></div>
+      </div>
+    </section>
+    <footer><p><small>Written by Brennan Saeta (saeta@@cs.stanford.edu). 
+    Code on <a href="https://github.com/saeta/axess">GitHub</a>. 
+    Written in <a href="http://www.scala-lang.org/">Scala</a> 
+    using <a href="http://www.playframework.org/">Play2.0</a>, and 
+    styled using <a href="http://twitter.github.com/bootstrap/">Bootstrap</a>.</small></p></footer>
+    @* @play20.welcome(message) *@
     
 }
