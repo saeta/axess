@@ -13,6 +13,9 @@ case class Scan(id: Long, siteId: Long, startTime: Option[Date],
   def started = startTime != None
 }
 
+case class ScanSummary(scanId: Long, siteId: Long, start_time: Option[Date],
+  tag: String, numMsgs: Long)
+
 object Scan {
   val scan = {
     long("id") ~
@@ -27,6 +30,17 @@ object Scan {
           errorMsg ~ pagesFound ~ pagesScanned =>
           Scan(id, siteId, start_time, end_time, error, errorMsg, pagesFound,
             pagesScanned)
+      }
+  }
+
+  val scanSummary = {
+    long("s.id") ~
+      long("siteId") ~
+      get[Option[Date]]("start_time") ~
+      str("tag") ~
+      long("numMsgs") map {
+        case id ~ siteId ~ start_time ~ tag ~ numMsgs =>
+          ScanSummary(id, siteId, start_time, tag, numMsgs)
       }
   }
 
@@ -76,5 +90,16 @@ object Scan {
            SET error=true, 
                errorMsg='Terminated on boot' 
          WHERE end_time IS NULL""").executeUpdate()
+  }
+
+  def scanSummaries() = DB.withConnection { implicit c =>
+    SQL("""
+        SELECT s.id, siteId, start_time, si.tag,
+               (SELECT count(*) FROM ScanMsg WHERE scanId = s.id) as numMsgs 
+          FROM Scan s, Sites si 
+         WHERE si.id = s.siteId 
+           AND s.id IN (SELECT max(id) FROM Scan GROUP BY siteId) 
+      ORDER BY siteId
+        """).as(scanSummary *)
   }
 }
