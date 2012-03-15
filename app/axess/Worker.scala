@@ -17,7 +17,7 @@ import axess.checkers._
 class Worker extends Actor {
   var browser: WebDriver = new HtmlUnitDriver
   var siteType: SiteType = _
-  val checkers = List(new AltText())
+  val checkers = List(new AltText(), new FormLabel())
 
   def scanPage(url: String) = {
     browser.get(url)
@@ -57,11 +57,6 @@ class Worker extends Actor {
     } else {
       linkText
     }
-    //    if (linkText.contains("#")) {
-    //      linkText.split("#")(0)
-    //    } else {
-    //      linkText
-    //    }
   }
 
   def receive = {
