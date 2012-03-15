@@ -34,10 +34,10 @@ object Scan {
   }
 
   val scanSummary = {
-    long("s.id") ~
-      long("siteId") ~
-      get[Option[Date]]("start_time") ~
-      str("tag") ~
+    long("Scan.id") ~
+      long("Scan.siteId") ~
+      get[Option[Date]]("Scan.start_time") ~
+      str("Sites.tag") ~
       long("numMsgs") map {
         case id ~ siteId ~ start_time ~ tag ~ numMsgs =>
           ScanSummary(id, siteId, start_time, tag, numMsgs)

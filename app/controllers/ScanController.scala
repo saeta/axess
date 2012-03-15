@@ -72,4 +72,8 @@ object ScanController extends Controller {
     }
   }
 
+  def summary = Action {
+    Ok(views.html.scanHistory(Scan.scanSummaries()))
+  }
+
 }
