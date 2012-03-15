@@ -1,5 +1,7 @@
 # High Priorities #
 
+ - Add timing
+ - Default to axess.CourseraSite for site type.
  - Test more!
  - Have default landing page be useful!
  - Checkers
