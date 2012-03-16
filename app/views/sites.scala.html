@@ -67,9 +67,7 @@
               }
             </td>
             <td>
-              @form(routes.ScanController.start(site.id)) {
-                  <input type="submit" class="btn btn-success btn-mini @if(!site.scannable) {disabled}" @if(!site.scannable) {disabled="disabled" title="@site.reason"} value="Scan" />
-              }
+              @scanForm(site.id)
             </td>
             <td>
               @form(routes.SiteController.edit(site.id)) {
