@@ -1,6 +1,6 @@
 @(message: String)
 
-@main("Welcome to Play 2.0") {
+@main("Axess - Web Scanner") {
     
     <header class="jumbotron">
       <div class="page-header">
@@ -9,11 +9,19 @@
     </header>
     <section id="welcome">
       <div class="row">
-        <div class="span3">
-          <p>To scan a site, click <b>Sites</b> above.</p>
-          <p>To see past scan results, click <b>Scan Results</b></p>.
+        <div class="span4">
+          <h2>TLDR <small>Brief Intro</small></h2>
+          <p>To scan a site, click 
+            <a href="@routes.SiteController.all" 
+               class="btn btn-mini btn-primary">Sites</a> (Or click above in the
+               nav bar.)</p>
+          <p>To see past scan results, click 
+            <a href="@routes.ScanController.summary" 
+               class="btn btn-mini btn-primary">Scan Results</a> (Or click above
+            in the nav bar.)</p>
         </div>
         <div class="span6">
+          <h2>About <small>Overview, background, etc.</small></h2>
           <p>Axess is the site scanner. It checks for accessibility violations,
           and a few other validation errors.</p>
           <p>Everything is organized around the concept of a <b>Site</b>. A
@@ -25,11 +33,94 @@
           
           <p>If you have feature requests, or would like something changed,
           please do make a request.</p>
+          
+          <h3>Why Axess? <small>Motivation</small></h3>
+          <p>Axess is important for a couple reasons:</p>
+          <ol>
+            <li>The Software as a Service Coursera course has over 9000 
+            individual pages as of this writing. This is too much for someone go
+            to through manually. We thus need an automated tool.</li>
+            <li>A lot of frameworks have username/password login requirements.
+            We need an extensible framework that can handle logins.</li>
+            <li>We need a tool to check more than simple accessibility issues.
+            This tool will also help find dead links, etc.</li>
+          </ol>
+          
+          <h2>Other Tools</h2>
+          <p>Axess is by no means the be-all-end-all solution. There are many
+          accessibility issues that are best enforced through other tools, or
+          manual inspection. Some other tools that should be considered include:</p>
+          <ul>
+            <li><a href="http://appro.mit.jyu.fi/tools/acc/">Acc</a></li>
+            <li><a href="http://foxability.sourceforge.net/">Foxability</a></li>
+          </ul>
+          
+          <p>Sources and inspiration for this tool came from:</p>
+          <ul>
+            <li>Foo</li>
+            <li>TODO</li>
+          </ul>
+          
+          <h2>Checked and Unchecked <small>Overview of missing features</small></h2>
+          <h3>What we do check</h3>
+          <ul>
+            <li>Foo</li>
+          </ul>
+          <h3>What we do <b>NOT</b> check <small>But should?</small></h3>
+          <ul>
+            <li>Check for page title</li>
+            <li>Text should be black or blue? (For low vision)</li>
+            <li>No "blink" things</li>
+            <li>Check for contrast between content and background. (Contrast ratio of 3:1 or 4.5:1)</li>
+            <li>Check for 50% (or more?) content in a table or pre tag</li>
+            <li>Check for links that say "click here", or some form of that.</li>
+            <li>Check to make sure there's non-link printable characters 
+            (surrounded by spaces) in between two consecutive links. 
+            <a href="http://www.w3.org/WAI/GL/central.htm">Idea found here</a></li>
+            <li>Make sure images have alts as well as titles?</li>
+            <li>Provide a <code>NOFRAME</code> option for each <code>FRAMESET</code></li>
+            <li>Title each <code>frame</code>, as well as using the 
+            <code>longdesc</code> attribute on <code>frame, iframe</code>s</li>
+            <li>(<a href="http://www.w3.org/WAI/GL/central.htm#LNK.lnk">Forms</a>)
+            If a selection list is very long, provide optgroups.</li>
+            <li>Require submit buttons to <i>NOT</i> be graphical.</li>
+          </ul>
+          
+          <h4>Non-accessbility TODO's</h4>
+          <ul>
+            <li>Check to make sure linked-to pages return 2XX or 3XX responses</li>
+          </ul>
+          
+          <h3>What we cannot check for</h3>
+          <p>There are some things that we cannot easily check for. 
+          Unfortunately, that's the way things are. Below are some examples, but
+          by no means are complete. (These are taken from 
+          <a href="http://www.w3.org/TR/WCAG20/">WCAG 2.0</a>)</p>
+          <ul>
+            <li>Decoration, Formatting, Invisible: This tool cannot easily 
+            determine if an image is decoration, or if it is actual content.</li>
+            <li>That the website is fully functional using only the keyboard.</li>
+            <li>"When an authenticated session expires, the user can continue 
+            the activity without loss of data after re-authenticating."</li>
+            <li>Help users avoid and correct mistakes.</li>
+          </ul>
+          
+          <h3>Features that should be implemented</h3>
+          <ul>
+            <li>Have the ability to suppress certain warning messages.</li>
+            <li>Differentiate between errors and severity.(Warnings vs Errors?)</li>
+          </ul>
+          
+          <h3>A list of good ideas</h3>
+          <ul>
+            <li>Keyboard shortcuts for links (and form elements): add the "accesskey" attribute to links.</li>
+            <li>Provide a longer description (such as longdesc) for important graphics.</li>
+          </ul>
         </div>
-        <div class="span3"></div>
+        <div class="span2">Some content should eventually go here... maybe a dashboard of sorts.</div>
       </div>
     </section>
-    <footer><p><small>Written by Brennan Saeta (saeta@@cs.stanford.edu). 
+    <footer><p class="well" style="text-align: center;"><small>Written by Brennan Saeta (saeta@@cs.stanford.edu). 
     Code on <a href="https://github.com/saeta/axess">GitHub</a>. 
     Written in <a href="http://www.scala-lang.org/">Scala</a> 
     using <a href="http://www.playframework.org/">Play2.0</a>, and 
