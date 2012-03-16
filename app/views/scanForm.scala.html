@@ -1,0 +1,8 @@
+@(siteId: Long, msg: String = "Scan", color: String = "btn-success")
+
+@import helper._
+@import helper.twitterBootstrap._
+
+@form(routes.ScanController.start(siteId)) {
+  <input type="submit" class="btn @color btn-mini" value="@msg" />
+}
