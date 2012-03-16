@@ -36,9 +36,7 @@
                 <td>@s.tag</td>
                 <td><a href="@routes.ScanController.results(s.scanId)">@s.start_time</a></td>
                 <td>@s.numMsgs</td>
-                <td>@form(routes.ScanController.start(s.siteId)) {
-                  <input type="submit" class="btn btn-primary btn-mini" value="Scan" />
-                }</td>
+                <td>@scanForm(s.siteId, color="btn-primary")</td>
               </tr>
             }
           </tbody>
