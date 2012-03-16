@@ -1,11 +1,11 @@
 # High Priorities #
 
- - Add timing
+ - Add timing (i.e. daily run tests)
  - Default to axess.CourseraSite for site type.
  - Test more!
- - Have default landing page be useful!
  - Checkers
- - View past scans
+ - Make everything more modular and configurable (and injectable).
+   (Consider using Guice)
 
  - Try and scan in-video quizzes.
 
