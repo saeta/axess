@@ -14,8 +14,7 @@ class CourseraSiteSpec extends Specification {
       val password: Option[String] = None
       password match {
         case None =>
-          println("WARNING! NOT ACTUALLY TESTING LOGIN")
-          1 must beEqualTo(1)
+          skipped("no password")
         case Some(pwd) =>
           val browser = new HtmlUnitDriver
           val site = new CourseraSite
@@ -37,8 +36,7 @@ class CourseraSiteSpec extends Specification {
       val password: Option[String] = None
       password match {
         case None =>
-          println("WARNING! NOT ACTUALLY TESTING LOGIN")
-          1 must beEqualTo(1)
+          skipped("no password")
         case Some(pwd) =>
           val browser = new HtmlUnitDriver
           val site = new CourseraSite
