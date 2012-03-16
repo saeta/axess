@@ -89,7 +89,7 @@ object Scan {
         UPDATE Scan 
            SET error=true, 
                errorMsg='Terminated on boot' 
-         WHERE end_time IS NULL""").executeUpdate()
+         WHERE end_time IS NULL AND error=false""").executeUpdate()
   }
 
   def scanSummaries() = DB.withConnection { implicit c =>
