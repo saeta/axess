@@ -1,11 +1,14 @@
 # High Priorities #
 
  - Add timing (i.e. daily run tests)
- - Default to axess.CourseraSite for site type.
  - Test more!
  - Checkers
  - Make everything more modular and configurable (and injectable).
    (Consider using Guice)
+
+ - Test classloading
+ - Provide more help in the new site forms (rework so that SiteType is a 
+   selection, and the values are populated by an akka extension)
 
 # Things to do! #
 
