@@ -53,5 +53,14 @@ class CourseraSiteSpec extends Specification {
           browser.getCurrentUrl() must startWith("https://www.coursera.org/saas/class")
       }
     }
+
+    "be created by reflection" in {
+      val name = "models.CourseraSite"
+      val clazz = Class.forName(name)
+      val cs = clazz.getConstructors()(0).newInstance()
+
+      (clazz != null) === (true) and
+        (clazz.getConstructors()(0).newInstance() != null) === (true)
+    }
   }
 }
