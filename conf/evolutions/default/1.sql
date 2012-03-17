@@ -8,8 +8,8 @@ CREATE TABLE Sites (
   username VARCHAR(100) NOT NULL, -- login info
   password VARCHAR(100) NOT NULL,
   home VARCHAR(100) NOT NULL, -- home page url
-  type VARCHAR(1000), -- Class name for site
-  dsc VARCHAR(1000) -- description
+  type VARCHAR(1000) NOT NULL, -- Class name for site
+  dsc VARCHAR(1000) NOT NULL DEFAULT "" -- description
 );
 
 # --- !Downs

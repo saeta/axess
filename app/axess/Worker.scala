@@ -42,7 +42,7 @@ class Worker extends Actor {
 
   def login(site: Site) = {
     browser.manage().deleteAllCookies()
-    val s = Class.forName(site.stype.get).newInstance().asInstanceOf[SiteType]
+    val s = Class.forName(site.stype).newInstance().asInstanceOf[SiteType]
     s.configure(site)
     siteType = s
     siteType.login(browser)

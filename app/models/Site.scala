@@ -6,11 +6,9 @@ import play.api.db._
 import play.api.Play.current
 
 case class Site(id: Long, tag: String, usr: String, pwd: String, home: String,
-  stype: Option[String], dsc: Option[String]) {
-  def scannable = stype != None
-
-  def reason = "Type of site undefined!"
-}
+  stype: String, dsc: String)
+case class NewSite(tag: String, usr: String, pwd: String, home: String,
+  typ: String, dsc: String)
 
 object Site {
 
@@ -20,8 +18,8 @@ object Site {
       str("username") ~
       str("password") ~
       str("home") ~
-      get[Option[String]]("type") ~
-      get[Option[String]]("dsc") map {
+      str("type") ~
+      str("dsc") map {
         case id ~ tag ~ usr ~ pwd ~ home ~ stype ~ dsc =>
           Site(id, tag, usr, pwd, home, stype, dsc)
       }
@@ -31,19 +29,22 @@ object Site {
     SQL("""SELECT * FROM Sites ORDER BY id""").as(site *)
   }
 
-  def create(tag: String, usr: String, pwd: String, home: String) =
+  def create(ns: NewSite) =
     DB.withConnection { implicit c =>
-      SQL("""INSERT INTO Sites (tag, username, password, home) 
-           VALUES ({tag}, {usr}, {pwd}, {home})""").on(
-        'usr -> usr,
-        'pwd -> pwd,
-        'home -> home,
-        'tag -> tag).executeUpdate()
-      SQL("SELECT max(id) FROM Sites WHERE tag={tag} AND username={usr} AND password={pwd} AND home={home}").on(
-        'tag -> tag,
-        'usr -> usr,
-        'pwd -> pwd,
-        'home -> home).as(scalar[Long].single)
+      SQL("""INSERT INTO Sites (tag, username, password, home, type, dsc) 
+           VALUES ({tag}, {usr}, {pwd}, {home}, {typ}, {dsc})""").on(
+        'usr -> ns.usr,
+        'pwd -> ns.pwd,
+        'home -> ns.home,
+        'tag -> ns.tag,
+        'typ -> ns.typ,
+        'dsc -> ns.dsc).executeUpdate()
+      SQL("SELECT max(id) FROM Sites WHERE tag={tag} AND username={usr} AND password={pwd} AND home={home} AND type={typ}").on(
+        'tag -> ns.tag,
+        'usr -> ns.usr,
+        'pwd -> ns.pwd,
+        'home -> ns.home,
+        'typ -> ns.typ).as(scalar[Long].single)
     }
 
   def delete(id: Long) = DB.withConnection { implicit c =>

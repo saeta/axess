@@ -23,16 +23,12 @@ object ScanController extends Controller {
   def start(id: Long) = Action {
     Site.getSite(id) match {
       case Some(site) => {
-        if (!site.scannable) {
-          BadRequest
-        } else {
-          AsyncResult {
-            (axess ? StartScan(id)).mapTo[ScanStarted].asPromise.map {
-              scanStart =>
-                Redirect(
-                  routes.ScanController.status(scanStart.scanId)).flashing(
-                    "started" -> "y")
-            }
+        AsyncResult {
+          (axess ? StartScan(id)).mapTo[ScanStarted].asPromise.map {
+            scanStart =>
+              Redirect(
+                routes.ScanController.status(scanStart.scanId)).flashing(
+                  "started" -> "y")
           }
         }
       }

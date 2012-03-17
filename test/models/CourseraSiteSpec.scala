@@ -24,8 +24,8 @@ class CourseraSiteSpec extends Specification {
               "testuser@cs.stanford.edu",
               pwd,
               "https://www.coursera.org/playspace",
-              Some("axess.CourseraSite"),
-              None))
+              "models.CourseraSite",
+              ""))
 
           site.login(browser)
           browser.getCurrentUrl() must startWith("https://www.coursera.org/playspace/class")
@@ -46,8 +46,8 @@ class CourseraSiteSpec extends Specification {
               "testuser@cs.stanford.edu",
               pwd,
               "https://www.coursera.org/saas",
-              Some("axess.CourseraSite"),
-              None))
+              "models.CourseraSite",
+              ""))
 
           site.login(browser)
           browser.getCurrentUrl() must startWith("https://www.coursera.org/saas/class")

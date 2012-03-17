@@ -52,7 +52,6 @@
           <th>Home</th>
           <th>Delete</th>
           <th>Scan</th>
-          <th>Edit</th>
         </tr>
       </thead>
       <tbody>
@@ -68,11 +67,6 @@
             </td>
             <td>
               @scanForm(site.id)
-            </td>
-            <td>
-              @form(routes.SiteController.edit(site.id)) {
-                  <input type="submit" class="btn btn-primary btn-mini" value="Edit" />
-              }
             </td>
           </tr>
         }

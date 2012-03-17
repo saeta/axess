@@ -8,8 +8,6 @@ GET     /sites                      controllers.SiteController.all
 GET     /sites/new                  controllers.SiteController.newSiteGet
 POST    /sites/new                  controllers.SiteController.newSitePost
 POST    /sites/delete               controllers.SiteController.delete(id: Long)
-GET     /sites/edit/:id             controllers.SiteController.edit(id: Long)
-POST    /sites/edit/:id             controllers.SiteController.save(id: Long)
 POST    /scan/start                 controllers.ScanController.start(id: Long)
 GET     /scan/status                controllers.ScanController.status(id: Long)
 GET     /scan/results/:id           controllers.ScanController.results(id: Long)

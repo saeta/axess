@@ -1,4 +1,4 @@
-@(frm: Form[(String, String, String, String)])
+@(frm: Form[NewSite])
 
 @import helper._
 @import helper.twitterBootstrap._
@@ -39,6 +39,12 @@
           
       @helper.inputText(frm("home"), '_label->"Home Page (url)",
           'placeholder -> "http://www.example.com/")
+          
+      @helper.inputText(frm("type"), '_label->"Site Type", 
+          'placeholder -> "models.CourseraSite")
+      
+      @helper.inputText(frm("dsc"), '_label->"Description", 
+          'placeholder -> "Human consumed description about the site scanned.")
 
       <div class="form-actions">      
         <input type="submit" class="btn btn-primary" value="Create" />
