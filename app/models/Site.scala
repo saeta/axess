@@ -67,7 +67,7 @@ object Site {
   }
 
   def siteTypes() = DB.withConnection { implicit c =>
-    SQL("SELECT UNIQUE type FROM Sites")().map(row => row[String]("type")).toList
+    SQL("SELECT DISTINCT type FROM Sites")().map(row => row[String]("type")).toList
   }
 
 }
