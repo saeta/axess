@@ -1,10 +1,10 @@
 # High Priorities #
 
- - Add timing (i.e. daily run tests)
+ - Add timing (i.e. daily run tests) (+ in dev mode, hitting a URL triggers it.)
  - Test more!
  - Checkers
  - Make everything more modular and configurable (and injectable).
-   (Consider using Guice)
+   (Consider using Guice?)
 
 # Things to do! #
 
