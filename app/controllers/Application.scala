@@ -11,6 +11,7 @@ import akka.util.duration._
 import akka.util.Timeout
 import axess._
 import play.api.Play._
+import models.DashboardEntry
 
 object Application extends Controller {
 
@@ -26,7 +27,7 @@ object Application extends Controller {
   implicit val timeout = Timeout(1000 milliseconds)
 
   def index = Action {
-    Ok(views.html.index("Your new application is ready."))
+    Ok(views.html.index(DashboardEntry.get()))
   }
 
   def foo = Action {

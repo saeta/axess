@@ -1,4 +1,4 @@
-@(message: String)
+@(dashboard: List[DashboardEntry])
 
 @main("Axess - Web Scanner") {
     
@@ -121,7 +121,23 @@
           </ul>
         </div>
         <div class="span3">
-          <p>Some content should eventually go here... maybe a dashboard of sorts.</p>
+          <h2>Dashboard</h2>
+          <table class="table table-bordered table-striped table-condensed">
+            <thead>
+              <tr>
+                <th>Site</th>
+                <th># Err</th>
+              </tr>
+            </thead>
+            <tbody>
+              @dashboard.map { entry =>
+                <tr>
+                  <td>@entry.tag</td>
+                  <td><a href="@routes.ScanController.results(entry.scanId)">@entry.numErrors</a></td>
+                </tr>
+              }
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
