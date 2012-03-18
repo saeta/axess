@@ -6,10 +6,6 @@
  - Make everything more modular and configurable (and injectable).
    (Consider using Guice)
 
- - Test classloading
- - Provide more help in the new site forms (rework so that SiteType is a 
-   selection, and the values are populated by an akka extension)
-
 # Things to do! #
 
  - Move to multi-project set up with interface for `Site` defined in a separate file (also `Checker`)
