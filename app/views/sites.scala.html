@@ -15,24 +15,18 @@
   <div class="row">
   
   <div class="span4">
-    <h2> About </h2>
+    <h2> About <small>What are sites?</small></h2>
 
-    <p> Here are the sites that can be scanned. </p>
+    <p>A site is the basic entity in Axess. A site identifies all the
+    configuration necessary to scan the site, and report errors.</p>
     
-    <p> A <i>site</i> includes:</p>
-    <dl>
-      <dt>Tag*</dt><dd>A short human readable tag</dd>
-      <dt>Username*</dt><dd>The login name</dd>
-      <dt>Password*</dt><dd>The login password</dd>
-      <dt>Home*</dt><dd>Home URL (this is the URL the scans starts at)</dd>
-      <dt>Type*</dt><dd>This indicates the type of site this is. This is the 
-        fully-qualified Java <code>class</code> name.</dd>
-      <dt>Description</dt><dd>A human readible description</dd>
-    </dl>
-    <p>Items with asterisks are required. The <b>Type</b> is guessed from known 
-    websites, although there is no scanning to find the first scanner. Any of
-    these values can be edited from the edit page for a site.</p>
+    <div class="alert">
+      <strong>Warning!</strong> Once you delete a site, that information is
+      deleted in the database. It is unrecoverable.
+    </div>
     
+    
+    <h2>Add a new site <small>Scan away!</small></h2>
     <p> Add a website to Axess to scan it. </p>
     
     <div class="alert alert-error">

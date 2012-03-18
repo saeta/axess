@@ -13,18 +13,59 @@
 <section id="add">
 
   <div class="row">
-  <div class="span4">
-    <h2> About </h2>
+  <div class="span7">
+    <h2> About <small>What is a site?</small> </h2>
 
-    <p> A set of credentials is used to create a <a href="@routes.SiteController.all">site</a>. </p>
+    <p>A set of credentials and basic information is used to create a 
+      <a href="@routes.SiteController.all">site</a>.</p>
+
+    <p>This page defines a new site that can be scanned. Once the site is created,
+    it can only be modified by direct database access.</p>
+      
+    <h3>Site Types <small>A package of important properties</small></h3>
+    <p>A <b>Site Type</b> is the fully qualified name of a Scala (or Java) class that
+    collects a few basic bits of information into one convenient package. 
+    These important pieces of information are:</p>
+    <dl>
+      <dt>How to log in</dt>
+      <dd>Given only a username and password, the SiteType includes a sequence of
+      steps to programatically log in.</dd>
+      <dt>Pages included in a site</dt>
+      <dd>The Site Type determines if a page is part of a site.</dd>
+    </dl>
+    <p>For those sites that do not require a login, and every page in the site
+    has the homepage as a prefix to the URL, the built-in <b>TODO IMPLEMENT ME</b>
+    SiteType can be used. For instructions on how to write your own SiteType, see
+    the GitHub wiki.</p>
+    
+    <h3>Username & Password <small>Basic Authentication</small></h3>
+    <p>The username and password fields collect basic authentication information,
+    abstracting this information out of the code for a site type.</p>
+    
+    <h3>Home Page <small>The starting point</small></h3>
+    <p>This is the starting page (typically) that a scan starts at, and the page
+    that is the starting point for programmatic login. This should (ideally) be
+    the top-level page.</p>
+    
+    <p>For example, if a site consists of:</p>
+    <ul>
+      <li>http://www.example.com/</li>
+      <li>http://www.example.com/foo</li>
+      <li>http://www.example.com/foo/bar</li>
+      <li>http://www.example.com/baz</li>
+    </ul>
+    <p>then the first url should be the homepage.</p>
 
     <div class="alert">
-      <strong>Warning!</strong> Passwords are stored <i>unencrypted</i>. Do NOT use secure passwords!
+      <strong>Warning!</strong> Passwords are stored <emph>unencrypted</emph>. Do NOT use secure passwords!
     </div>
+    <p>Note: we do not expose the passwords in the user interface, nor do we
+    allow anyone to change the home page url once the site has been created for
+    security reasons.</p>
     
   </div>
-  <div class="span8">
-    <h2>Add new credentials</h2>
+  <div class="span5">
+    <h2>Add new credentials <small>+1</small></h2>
     <div>
     @form(routes.SiteController.newSitePost, 'class -> "form-vertical well") {
       <fieldset>
@@ -43,8 +84,8 @@
       @helper.inputText(frm("type"), '_label->"Site Type", 
           'placeholder -> "models.CourseraSite", 'id -> "sitetype")
       
-      @helper.inputText(frm("dsc"), '_label->"Description", 
-          'placeholder -> "Human consumed description about the site scanned.")
+      @helper.textarea(frm("dsc"), '_label->"Description", 
+          'placeholder -> "Human consumed description about the site.")
 
       <div class="form-actions">      
         <input type="submit" class="btn btn-primary" value="Create" />
