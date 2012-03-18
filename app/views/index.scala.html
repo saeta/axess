@@ -122,6 +122,7 @@
           </ul>
         </div>
         <div class="span3">
+        @if(dashboard.length > 0) {
           <h2>Dashboard</h2>
           <table class="table table-bordered table-striped table-condensed">
             <thead>
@@ -139,6 +140,16 @@
               }
             </tbody>
           </table>
+        } else {
+          <h2>Getting started!</h2>
+          <p>Welcome to <b>Axess</b>!</p>
+            
+          <p>You can get started by creating a new site on the 
+          <a class="btn btn-primary btn-mini" href="@routes.SiteController.newSiteGet">New Site</a>
+          page.</p>
+          <p>You can always get to that page by clicking on the <b>Sites</b> link
+          in the navigation bar at the top of the page.</p>
+        }
         </div>
       </div>
     </section>
