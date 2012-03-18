@@ -12,10 +12,9 @@ case class Scan(id: Long, siteId: Long, startTime: Option[Date],
   def finished = endTime != None
   def started = startTime != None
   def duration = (startTime, endTime) match {
-    case (None, _) => "-"
-    case (_, None) => "-"
     case (Some(start), Some(end)) =>
       ((end.getTime() - start.getTime()) / 1000).toString()
+    case _ => "-"
   }
 }
 
