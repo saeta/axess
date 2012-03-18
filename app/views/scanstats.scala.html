@@ -31,6 +31,10 @@
             <td>@stats.numDone</td>
           </tr>
           <tr>
+            <td><b>To do list length</b></td>
+            <td>@(stats.numSeen - stats.numDone)</td>
+          </tr>
+          <tr>
             <td><b>Queue Length</b></td>
             <td>@stats.as.queueLength</td>
           </tr>
