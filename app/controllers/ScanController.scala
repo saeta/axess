@@ -24,12 +24,12 @@ object ScanController extends Controller {
     Site.getSite(id) match {
       case Some(site) => {
         AsyncResult {
-          (axess ? StartScan(id)).mapTo[ScanStarted].asPromise.map {
-            scanStart =>
-              Redirect(
-                routes.ScanController.status(scanStart.scanId)).flashing(
-                  "started" -> "y")
-          }
+          (axess ? StartScan(id) map {
+            case scanStart: ScanStarted =>
+              Redirect(routes.ScanController.status(scanStart.scanId))
+          } recover {
+            case _ => InternalServerError
+          }).asPromise
         }
       }
       case None => BadRequest
@@ -46,11 +46,13 @@ object ScanController extends Controller {
           Redirect(routes.ScanController.results(id))
         } else {
           AsyncResult {
-            (axess ? StatsRequest(id)).mapTo[StatsResponse].asPromise.map {
-              sr =>
+            (axess ? StatsRequest(id) map {
+              case sr: StatsResponse =>
                 val s = Site.getSite(scan.siteId).get
                 Ok(views.html.scanstats(sr, s, started))
-            }
+            } recover {
+              case _ => Redirect(routes.ScanController.status(id))
+            }).asPromise
           }
         }
     }
