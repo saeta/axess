@@ -27,7 +27,7 @@ object SiteController extends Controller {
   def newSitePost = Action { implicit request =>
     newSiteForm.bindFromRequest.fold(
       errors => {
-        BadRequest(views.html.sitesNew(errors))
+        BadRequest(views.html.sitesNew(errors, Site.siteTypes()))
       },
       good => {
         Site.create(good)
@@ -36,6 +36,6 @@ object SiteController extends Controller {
   }
 
   def newSiteGet = Action { implicit request =>
-    Ok(views.html.sitesNew(newSiteForm))
+    Ok(views.html.sitesNew(newSiteForm, Site.siteTypes()))
   }
 }
