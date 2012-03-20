@@ -9,18 +9,7 @@
     </header>
     <section id="welcome">
       <div class="row">
-        <div class="span3">
-          <h2>TLDR <small>Brief Intro</small></h2>
-          <p>To scan a site, click 
-            <a href="@routes.SiteController.all" 
-               class="btn btn-mini btn-primary">Sites</a> (Or click above in the
-               nav bar.)</p>
-          <p>To see past scan results, click 
-            <a href="@routes.ScanController.summary" 
-               class="btn btn-mini btn-primary">Scan Results</a> (Or click above
-            in the nav bar.)</p>
-        </div>
-        <div class="span6">
+        <div class="span8">
           <h2>About <small>Overview, background, etc.</small></h2>
           <p>Axess is the site scanner. It checks for accessibility violations,
           and a few other validation errors.</p>
@@ -121,7 +110,7 @@
             <li>Provide a longer description (such as longdesc) for important graphics.</li>
           </ul>
         </div>
-        <div class="span3">
+        <div class="span4">
         @if(dashboard.length > 0) {
           <h2>Dashboard</h2>
           <table class="table table-bordered table-striped table-condensed">
