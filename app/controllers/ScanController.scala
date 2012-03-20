@@ -74,4 +74,15 @@ object ScanController extends Controller {
     Ok(views.html.scanHistory(Scan.scanSummaries()))
   }
 
+  def sysstatus = Action {
+    AsyncResult {
+      (axess ? AxessStatsQuery map {
+        case as: AxessStats =>
+          Ok(views.html.axessStatus(as, SysStats.get()))
+      } recover {
+        case _ => InternalServerError
+      }).asPromise
+    }
+  }
+
 }

@@ -17,6 +17,8 @@ POST    /scan/start                 controllers.ScanController.start(id: Long)
 GET     /scan/status                controllers.ScanController.status(id: Long)
 GET     /scan/results/:id           controllers.ScanController.results(id: Long)
 GET     /scan/results               controllers.ScanController.summary
+# Stats
+GET     /status                     controllers.ScanController.sysstatus
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

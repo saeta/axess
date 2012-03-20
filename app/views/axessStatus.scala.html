@@ -1,0 +1,91 @@
+@(astats: axess.AxessStats, sstats: models.SysStats)
+
+@progressStyle(danger: Boolean, warn: Boolean) = @{ if(danger) {"progress-danger"} else if (warn) {"progress-warning"} }
+
+@main("About", refresh = true, refreshTime = 10)(navigation()) {
+
+<header class="jumbotron">
+  <div class="page-header">
+    <h1>System Health <small>Have we collapsed yet?</small></h1>
+  </div>
+</header>
+
+<section>
+  <div class="row">
+    <div class="span4">
+      <h2>Heap Usage <small>Memory</small></h2>
+      <div class="progress @progressStyle(sstats.heapDanger, sstats.heapWarn)">
+        <div class="bar" style="width: @sstats.heapPercent%;"></div>
+      </div>
+      <h2>CPU <small>Load per CPU</small></h2>
+      <div class="progress @progressStyle(sstats.loadDanger, sstats.loadWarn)">
+        <div class="bar" style="width: @sstats.loadPercent%;"></div>
+      </div>
+      <h2>Disk Usage <small>Space on <code>cwd</code></small></h2>
+      <div class="progress @progressStyle(sstats.fsDanger, sstats.fsDanger)">
+        <div class="bar" style="width: @sstats.fsPercent%;"></div>
+      </div>
+    </div>
+    <div class="span8">
+      <h1>Axess Metrics <small>Current State of Back-end</small></h1>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Queue Length</b></td>
+            <td>@astats.queueLength</td>
+          </tr>
+          <tr>
+            <td><b>Free Set Size</b></td>
+            <td>@astats.freeSetSize</td>
+          </tr>
+          <tr>
+            <td><b>Concurrent Scans</b></td>
+            <td>@astats.concurrentScans</td>
+          </tr>
+        </tbody>
+      </table>
+      <h1>System Metrics <small>When in doubt, add more memory</small></h1>
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Heap Size</b></td>
+            <td>@(math.round(sstats.heap / math.pow(2,20))) MB</td>
+          </tr>
+          <tr>
+            <td><b>Max Heap Size</b></td>
+            <td>@(math.round(sstats.maxHeap / math.pow(2, 20))) MB</td>
+          </tr>
+          <tr>
+            <td><b>System Load</b></td>
+            <td>@sstats.load</td>
+          </tr>
+          <tr>
+            <td><b># Cores</b></td>
+            <td>@sstats.procs</td>
+          </tr>
+          <tr>
+            <td><b>Disk Space Free</b></td>
+            <td>@(math.round(sstats.fsFree / math.pow(2,30))) GB</td>
+          </tr>
+          <tr>
+            <td><b>Disk Space Total</b></td>
+            <td>@(math.round(sstats.fsTotal / math.pow(2,30))) GB</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+}
