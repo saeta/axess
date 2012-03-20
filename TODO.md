@@ -1,6 +1,13 @@
 # High Priorities #
 
+ - WebAuth site
+ - Regular Site
+ - JTidy HTML check
+ - Check every link returns 2XX-type response
+ - Front-page formatting.
  - Add timing (i.e. daily run tests) (+ in dev mode, hitting a URL triggers it.)
+
+ - Update Play to Bootstrap2.X
  - Test more!
  - Checkers
  - Make everything more modular and configurable (and injectable).
@@ -19,3 +26,7 @@
 
  - Check all links get to valid pages. (Including outside the site!)
  - Check that all inputs that are not hidden or submit have a label
+
+# Low Priority #
+
+ - Configure a set of "always there" classes
