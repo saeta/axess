@@ -63,6 +63,7 @@
         </table>
       </div>
       <div class="span10">
+        @if(msgs.size > 0) {
         <table class="table table-striped table-condensed table-bordered">
           <thead>
             <tr>
@@ -83,6 +84,15 @@
             }
           </tbody>
         </table>
+        } else {
+        <div class="alert alert-success">
+          <h2><strong>Congratulations!</strong></h2>
+          <p>We found no accessibility or other errors to report.</p>
+        </div>
+
+        <p>Since you're such a rock star, consider adding keyboard shortcuts, and other things. Finally, get
+        people to test it! Look for other ideas, etc. Also, make sure perf is up!</p>
+        }
       </div>
     </div>
   </section>
