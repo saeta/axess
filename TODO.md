@@ -1,7 +1,5 @@
 # High Priorities #
 
- - Prevent divergence by making a particular URL (without query params
-   hittable only 40 times), and limit number of pages in site to 20,000
  - JTidy HTML check
  - Check every link returns 2XX-type response (check inside & outside differently)
  - Fix infinite redirect issue by displaying a "not scanning yet" page
@@ -22,3 +20,4 @@
  - The above should be an Akka extension
  - Create 2 different message types "Warnings", and "Errors"
  - Add the ability to suppress Warnings that match a particular pattern.
+ - More intelligently prune the URL search tree (rather than cutting it off at 15000)

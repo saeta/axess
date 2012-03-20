@@ -102,6 +102,7 @@ class ScanManager extends Actor {
       for {
         url <- n.urls
         if !pagesEncountered.contains(url)
+        if pagesEncountered.size < 15000
       } {
         pagesEncountered += url
         ScanMsg.foundPage(site.scanId, url)
