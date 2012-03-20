@@ -1,5 +1,8 @@
 # High Priorities #
 
+ - Prevent divergence by making a particular URL (without query params
+   hittable only 40 times), and limit number of pages in site to 20,000
+ - Run Axess on itself
  - JTidy HTML check
  - Check every link returns 2XX-type response
  - Surface scan stats in a status page.
