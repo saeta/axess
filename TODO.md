@@ -27,6 +27,3 @@
  - Check all links get to valid pages. (Including outside the site!)
  - Check that all inputs that are not hidden or submit have a label
 
-# Low Priority #
-
- - Configure a set of "always there" classes
