@@ -2,7 +2,7 @@
 
 @progressStyle(danger: Boolean, warn: Boolean) = @{ if(danger) {"progress-danger"} else if (warn) {"progress-warning"} else {"progress-success"} }
 
-@main("About", refresh = true, refreshTime = 10)(navigation("Status")) {
+@main("Status")(navigation("Status")) {
 
 <header class="jumbotron">
   <div class="page-header">
