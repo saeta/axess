@@ -1,6 +1,6 @@
 @(astats: axess.AxessStats, sstats: models.SysStats)
 
-@progressStyle(danger: Boolean, warn: Boolean) = @{ if(danger) {"progress-danger"} else if (warn) {"progress-warning"} }
+@progressStyle(danger: Boolean, warn: Boolean) = @{ if(danger) {"progress-danger"} else if (warn) {"progress-warning"} else {"progress-success"} }
 
 @main("About", refresh = true, refreshTime = 10)(navigation()) {
 
