@@ -6,7 +6,6 @@
  - Check every link returns 2XX-type response (check inside & outside differently)
  - Surface scan stats in a status page.
  - Create "static" success stories page.
- - Make navigation template helper to make it easier to have the top bar done correctly
  - Add timing (i.e. daily run tests) (+ in dev mode, hitting a URL triggers it.)
  - Write up instructions to build, deploy and run in README.md
 
