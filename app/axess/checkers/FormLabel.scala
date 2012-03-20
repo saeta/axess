@@ -14,10 +14,13 @@ class FormLabel extends Checker {
   def inputNames(form: WebElement) = {
     val names = scala.collection.mutable.Set[String]()
     val errors = scala.collection.mutable.Set[String]()
+    val inputs = form.findElements(By.tagName("input"))
+    val textareas = form.findElements(By.tagName("textarea"))
     for {
-      elem <- form.findElements(By.tagName("input"))
+      elem <- inputs.toList ::: textareas.toList
       typ = elem.getAttribute("type")
-      if typ != null && typ != "submit" && typ != "hidden"
+      if elem.getTagName() == "textarea" ||
+        (elem.getTagName() == "input" && typ != null && typ != "submit" && typ != "hidden")
       name = elem.getAttribute("name")
     } {
       name match {
