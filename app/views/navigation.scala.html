@@ -1,14 +1,16 @@
-@()
+@(curTab: String = "")(implicit headers: List[(play.api.mvc.Call, String)] = views.NavbarHeaders.defaults)
 
-@* This writes out the navigation header across all pages. *@
+@* This writes out the navigation header across all pages. Edit the defaults
+ * in the file NavbarHeaders.scala in this same folder. *@
 
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
       <ul class="nav">
-        <li><a class="brand" href="/">Axess</a></li>
-        <li><a href="@routes.SiteController.all">Sites</a>
-        <li><a href="@routes.ScanController.summary">Scan Results</a></li>
+        <li @if(curTab == "index") {class="active"}><a class="brand" href="/">Axess</a></li>
+        @for((url, hdr) <- headers) {
+        <li @if(curTab == hdr) {class="active"}><a href="@url">@hdr</a>
+        }
       </ul>
     </div>
   </div>
