@@ -42,6 +42,7 @@ class Axess extends Actor {
    * Reply with stats on how things are going.
    */
   def stats = {
+    // TODO: Consider adding list of ongoing scans.
     AxessStats(scanQueue.length, freeSet.size, scanMap.size)
   }
   /**
