@@ -1,7 +1,5 @@
 # High Priorities #
 
- - WebAuth site
- - Regular Site
  - JTidy HTML check
  - Check every link returns 2XX-type response
  - Surface scan stats in a status page.
