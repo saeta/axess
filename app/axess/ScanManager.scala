@@ -47,6 +47,8 @@ class ScanManager extends Actor {
         Scan.finish(scan.scanId)
         updateStatsDb()
         curScan = None
+        pagesEncountered.clear() // Free up memory
+        pagesScanned.clear()
         context.parent ! ScanComplete(scan.scanId)
       }
     }
