@@ -1,4 +1,4 @@
-@(title: String, refresh: Boolean = false)(content: Html)
+@(title: String, refresh: Boolean = false, refreshTime: Int = 1)(content: Html)
 
 <!DOCTYPE html>
 
@@ -6,7 +6,7 @@
     <head>
         <title>Axess - @title</title>
 
-        @if(refresh) {<meta http-equiv="refresh" content="1"/>}
+        @if(refresh) {<meta http-equiv="refresh" content="@refreshTime"/>}
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript">
           google.load("jquery", "1.7.1");
