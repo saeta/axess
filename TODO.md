@@ -1,6 +1,5 @@
 # High Priorities #
 
- - Surface scan stats in a status page.
  - Prevent divergence by making a particular URL (without query params
    hittable only 40 times), and limit number of pages in site to 20,000
  - JTidy HTML check
