@@ -1,0 +1,52 @@
+@()
+
+@****************************************************************************
+ * This page is a static page describing some successes this tool has had.  *
+ ****************************************************************************@
+
+@main("Success Stories")(navigation("Successes")) {
+  <header class="jumbotron">
+    <div class="page-header">
+      <h1>Success Stories <small>A few victories.</small></h1>
+    </div>
+  </header>
+
+  <section id="stories">
+    <div class="row">
+      <div class="span8">
+        <h2>Non-Javascript Login for <a
+        href="http://courseware.stanford.edu">CourseWare</a>
+        <small>3/19/12</small></h2>
+        <p>When I went to write the <code>models.CourseWareSite</code> login
+        module, Selenium's HtmlUnit driver didn't run Javascript. Because
+        the normal code path for Javascript-enabled browsers didn't work, I
+        turned off Javascript in order to debug. It turns out, the
+        non-javascript login had been neglected, and instead routed people
+        to <code>federation.org</code>, a domain name unaffiliated, and
+        outside of anyone's control.</p>
+        
+        <p>When I emailed the CourseWare people, they were very fast on the
+        draw, and fixed the issue within a couple hours. Good work!</p>
+        
+        <h2>Axess passes Axess <small>3/19/12</small></h2>
+        <p>I demo'd this tool to my girlfriend, and bragged about how it
+        finds all these easy-to-fix accessibility errors. She turned around
+        and challenged me to run it on itself. So I did. And found a few
+        bugs of my own! As of this writing, Axess comes back clean.</p>
+      </div>
+      <div class="span4">
+        <h2>Progress <small>Small Reminders</small></h2>
+        <p>These stories are here to make us smile as we fight the good
+        fight.</p>
+        
+        <h2>Add your own</h2>
+        <p>If you helped make a website more accessible, post your story
+        (embellished or not) on this page. Just fork the file on github,
+        make your changes, and send me your pull request.</p>
+        
+        <h3>How to <small>Pull request whaaa?</small></h3>
+        <p>TODO: write up instructions</p>
+      </div>
+    </div>
+  </section>
+}
