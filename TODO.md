@@ -8,7 +8,7 @@
  - Create "static" success stories page.
  - Make navigation template helper to make it easier to have the top bar done correctly
  - Add timing (i.e. daily run tests) (+ in dev mode, hitting a URL triggers it.)
- - Write up instructions to build and run in README.md
+ - Write up instructions to build, deploy and run in README.md
 
  - Update Play to Bootstrap2.X
  - Checkers
