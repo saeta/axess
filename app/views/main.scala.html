@@ -1,4 +1,4 @@
-@(title: String, refresh: Boolean = false, refreshTime: Int = 1)(content: Html)
+@(title: String, refresh: Boolean = false, refreshTime: Int = 1)(navbar: Html)(content: Html)
 
 <!DOCTYPE html>
 
@@ -21,17 +21,7 @@
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
     </head>
     <body>
-        <div class="navbar navbar-fixed-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <ul class="nav">
-                        <li><a class="brand" href="/">Axess</a></li>
-                        <li><a href="@routes.SiteController.all">Sites</a>
-                        <li><a href="@routes.ScanController.summary">Scan Results</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        @navigation()
         <div class="container">
             @content
         </div>

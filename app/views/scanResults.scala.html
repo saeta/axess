@@ -1,7 +1,7 @@
 @(site: Site, scan: Scan, numPagesWithIssues: Long, 
     numIssues: Long, msgs: List[ScanMsgGrouped])
 
-@main("Scan Results") {
+@main("Scan Results")(navigation()) {
   <header class="jumbotron">
     <div class="page-header">
       <h1>Scan Results for @site.tag</h1>
