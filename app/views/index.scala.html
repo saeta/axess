@@ -130,7 +130,7 @@
               @dashboard.map { entry =>
                 <tr>
                   <td>@entry.tag</td>
-                  <td><a href="@routes.ScanController.results(entry.scanId)">@entry.numErrors</a></td>
+                  <td><a href="@routes.ScanController.results(entry.scanId)">@entry.numErrors pages</a></td>
                 </tr>
               }
             </tbody>
