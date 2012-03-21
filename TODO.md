@@ -1,6 +1,5 @@
 # High Priorities #
 
- - JTidy HTML check
  - Check every link returns 2XX-type response (check inside & outside differently)
  - Write up instructions to build, deploy and run in README.md
  - Write up instructions for extending Axess
