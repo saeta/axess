@@ -46,13 +46,12 @@ object ScanController extends Controller {
           Redirect(routes.ScanController.results(id))
         } else {
           AsyncResult {
-            (axess ? StatsRequest(id) map {
+            (axess ? StatsRequest(id) map {a: Any => a match {
               case sr: StatsResponse =>
                 val s = Site.getSite(scan.siteId).get
                 Ok(views.html.scanstats(sr, s, started))
-            } recover {
-              case _ => Redirect(routes.ScanController.status(id))
-            }).asPromise
+              case BadStatsRequest => Ok("Please refresh the page later. We're busy.")
+            }}).asPromise
           }
         }
     }
