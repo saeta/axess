@@ -107,11 +107,11 @@ Github has the best guides to installing Git. Check out their
 1. Log in to mysql on the command prompt. `mysql -uroot -p`
 2. Execute the following sequence of commands:
 
-         ```sql
-         CREATE DATABASE axess;
-         GRANT ALL ON axess.* TO `axess`@`localhost` IDENTIFIED BY `axess`;
-         FLUSH PRIVILEGES;
-         ```
+     ```sql
+     CREATE DATABASE axess;
+     GRANT ALL ON axess.* TO `axess`@`localhost` IDENTIFIED BY `axess`;
+     FLUSH PRIVILEGES;
+     ```
 
 3. Exit the `mysql` shell by typing Ctrl-D.
 
