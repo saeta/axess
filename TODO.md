@@ -2,6 +2,7 @@
 
  - Write up instructions to build, deploy and run in README.md
  - Write up instructions for extending Axess
+ - Have login for Stanford's Axess
  - Add timing (i.e. daily run tests) (+ in dev mode, hitting a URL triggers it.)
 
  - Update Play to Bootstrap2.X
