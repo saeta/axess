@@ -70,9 +70,8 @@ Github has the best guides to installing Git. Check out their
      ```bash
      export PATH=$PATH:~/play-2.0
      ```
-
-   To edit your `.bashrc`, you can execute either: `gedit ~/.bashrc` (Linux)
-   or `open ~/.bashrc` (Mac) on the command prompt.
+     To edit your `.bashrc`, you can execute either: `gedit ~/.bashrc` (Linux)
+     or `open ~/.bashrc` (Mac) on the command prompt.
 
 4. Test that it works by opening a new command prompt (your changes from last
    step) do not take effect in your current command prompt), and type `play`.
