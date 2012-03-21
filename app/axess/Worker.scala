@@ -20,8 +20,9 @@ class Worker extends Actor {
   val checkers = List(new AltText(),
     new FormLabel(),
     new PageTitle(),
-    new Blink()/*,
-    new ValidLinks()*/) // ValidLinks disabled due to performance concerns
+    new Blink(),
+    new LinkText() /*,
+    new ValidLinks()*/ ) // ValidLinks disabled due to performance concerns
 
   def scanPage(url: String) = {
     browser.get(url)
