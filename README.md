@@ -79,24 +79,24 @@ Github has the best guides to installing Git. Check out their
    step) do not take effect in your current command prompt), and type `play`.
    You should see some spew similar to:
 
-		   Getting play console_2.9.1 2.0 ...
-			:: retrieving :: org.scala-tools.sbt#boot-app
-			confs: [default]
-		      	4 artifacts copied, 0 already retrieved (1472kB/40ms)
-		                    _            _ 
-		              _ __ | | __ _ _  _| |
-		             | '_ \| |/ _' | || |_|
-		             |  __/|_|\____|\__ (_)
-		             |_|            |__/ 
+		Getting play console_2.9.1 2.0 ...
+		      :: retrieving :: org.scala-tools.sbt#boot-app
+		confs: [default]
+		4 artifacts copied, 0 already retrieved (1472kB/40ms)
+		          _            _ 
+		    _ __ | | __ _ _  _| |
+		   | '_ \| |/ _' | || |_|
+		   |  __/|_|\____|\__ (_)
+		   |_|            |__/ 
 		
-		    play! 2.0, http://www.playframework.org
-		
-		    This is not a play application!
-		
-		    Use `play new` to create a new Play application in the current directory,
-		    or go to an existing application and launch the development console using `play`.
-		
-		    You can also browse the complete documentation at http://www.playframework.org.
+		play! 2.0, http://www.playframework.org
+
+		This is not a play application!
+
+		Use `play new` to create a new Play application in the current directory,
+		or go to an existing application and launch the development console using `play`.
+
+		You can also browse the complete documentation at http://www.playframework.org.
 
     If you see something unhappy along the lines of "command not found", it hasn't
     worked yet.
@@ -107,9 +107,11 @@ Github has the best guides to installing Git. Check out their
 1. Log in to mysql on the command prompt. `mysql -uroot -p`
 2. Execute the following sequence of commands:
 
+         ```sql
          CREATE DATABASE axess;
          GRANT ALL ON axess.* TO `axess`@`localhost` IDENTIFIED BY `axess`;
          FLUSH PRIVILEGES;
+         ```
 
 3. Exit the `mysql` shell by typing Ctrl-D.
 
