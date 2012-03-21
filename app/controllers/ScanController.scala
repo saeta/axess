@@ -1,3 +1,20 @@
+// Copyright 2012 Brennan Saeta
+//
+// This file is part of Axess
+//
+// Axess is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Axess is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Axess.  If not, see <http://www.gnu.org/licenses/>.
+
 package controllers
 
 import play.api.mvc._
@@ -18,7 +35,7 @@ object ScanController extends Controller {
 
   val system = ActorSystem("axess")
   val axess = system.actorOf(Props[Axess], "axess")
-  implicit val timeout = Timeout(5000 milliseconds)
+  implicit val timeout = Timeout(10 seconds)
 
   def start(id: Long) = Action {
     Site.getSite(id) match {
@@ -46,12 +63,14 @@ object ScanController extends Controller {
           Redirect(routes.ScanController.results(id))
         } else {
           AsyncResult {
-            (axess ? StatsRequest(id) map {a: Any => a match {
-              case sr: StatsResponse =>
-                val s = Site.getSite(scan.siteId).get
-                Ok(views.html.scanstats(sr, s, started))
-              case BadStatsRequest => Ok("Please refresh the page later. We're busy.")
-            }}).asPromise
+            (axess ? StatsRequest(id) map { a: Any =>
+              a match {
+                case sr: StatsResponse =>
+                  val s = Site.getSite(scan.siteId).get
+                  Ok(views.html.scanstats(sr, s, started))
+                case BadStatsRequest => Ok("Please refresh the page later. We're busy.")
+              }
+            }).asPromise
           }
         }
     }

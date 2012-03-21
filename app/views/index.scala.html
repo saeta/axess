@@ -1,5 +1,24 @@
 @(dashboard: List[DashboardEntry])
 
+@*****************************************************************************
+ * Copyright 2012 Brennan Saeta                                              *
+ *                                                                           *
+ * This file is part of Axess                                                *
+ *                                                                           *
+ * Axess is free software: you can redistribute it and/or modify             *
+ * it under the terms of the GNU General Public License as published by      *
+ * the Free Software Foundation, either version 3 of the License, or         *
+ * (at your option) any later version.                                       *
+ *                                                                           *
+ * Axess is distributed in the hope that it will be useful,                  *
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of            *
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the             *
+ * GNU General Public License for more details.                              *
+ *                                                                           *
+ * You should have received a copy of the GNU General Public License         *
+ * along with Axess.  If not, see <http://www.gnu.org/licenses/>.            *
+ *****************************************************************************@
+
 @main("Web Scanner")(navigation("index")) {
     
     <header class="jumbotron">
@@ -44,12 +63,6 @@
             <li><a href="http://foxability.sourceforge.net/">Foxability</a></li>
           </ul>
           
-          <p>Sources and inspiration for this tool came from:</p>
-          <ul>
-            <li>Foo</li>
-            <li>TODO</li>
-          </ul>
-          
           <h2>(Un)Checked <small>Features</small></h2>
           <h3>What we do check</h3>
           <ul>
@@ -59,29 +72,22 @@
             for them.</li>
             <li>Every page has a title (useful for bookmarks, etc.)</li>
             <li>No blink elements.</li>
+            <li>Link text shouldn't be 'here', or 'click', or a number.</li>
           </ul>
+
           <h3>What we do <b>NOT</b> check <small>But should?</small></h3>
           <ul>
             <li>Text should be black or blue? (For low vision)</li>
             <li>Check for contrast between content and background. (Contrast ratio of 3:1 or 4.5:1)</li>
-            <li>Check for 50% (or more?) content in a table or pre tag</li>
             <li>Check for links that say "click here", or some form of that.</li>
             <li>Check to make sure there's non-link printable characters 
             (surrounded by spaces) in between two consecutive links. 
             <a href="http://www.w3.org/WAI/GL/central.htm">Idea found here</a></li>
-            <li>Make sure images have alts as well as titles?</li>
             <li>Provide a <code>NOFRAME</code> option for each <code>FRAMESET</code></li>
             <li>Title each <code>frame</code>, as well as using the 
             <code>longdesc</code> attribute on <code>frame, iframe</code>s</li>
             <li>(<a href="http://www.w3.org/WAI/GL/central.htm#LNK.lnk">Forms</a>)
             If a selection list is very long, provide optgroups.</li>
-            <li>Require submit buttons to <i>NOT</i> be graphical.</li>
-            <li>No CSS blinking things.</li>
-          </ul>
-          
-          <h4>Non-accessbility TODO's</h4>
-          <ul>
-            <li>Check to make sure linked-to pages return 2XX or 3XX responses</li>
           </ul>
           
           <h3>What we cannot check for</h3>
@@ -98,7 +104,7 @@
             <li>Help users avoid and correct mistakes.</li>
           </ul>
           
-          <h3>Features that should be implemented</h3>
+          <h3>Axess Features that should be implemented</h3>
           <ul>
             <li>Have the ability to suppress certain warning messages.</li>
             <li>Differentiate between errors and severity.(Warnings vs Errors?)</li>
