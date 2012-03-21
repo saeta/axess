@@ -28,7 +28,7 @@ case class SysStats(heap: Long, maxHeap: Long,
   def heapDanger = heapPercent > 85
   def heapWarn = heapPercent > 70
   def loadPercent = math.min((load / procs.toDouble) * 100, 100)
-  def loadDanger = loadPercent > 100
+  def loadDanger = loadPercent >= 100
   def loadWarn = loadPercent > 80
 }
 
