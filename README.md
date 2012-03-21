@@ -72,12 +72,13 @@ Github has the best guides to installing Git. Check out their
 
    To edit your `.bashrc`, you can execute either: `gedit ~/.bashrc` (Linux)
    or `open ~/.bashrc` (Mac) on the command prompt.
+
 4. Test that it works by opening a new command prompt (your changes from step
    3. do not take effect in your current command prompt), and type `play`. You
    should see some spew similar to:
 
      Getting play console_2.9.1 2.0 ...
-     :: retrieving :: org.scala-tools.sbt#boot-app
+           :: retrieving :: org.scala-tools.sbt#boot-app
 	confs: [default]
 	4 artifacts copied, 0 already retrieved (1472kB/40ms)
             _            _ 
@@ -153,3 +154,21 @@ Eclipse and IDEA IDE support are provided out of the box by the Play Framework.
 See the Play article on [Setting up your preferred IDE][ide].
 
 [ide]: https://github.com/playframework/Play20/wiki/IDE "Set up your IDE"
+
+# Extending Axess #
+
+Axess is *designed* to be extensible. It is very easy to add new kinds of
+sites to log into, and to add new code verifications.
+
+## Logging into new sites ##
+
+If you would like to log into a new kind of site, look in the 
+`app/models/SiteType.scala` file for examples. Please add your own!
+
+## Checking other properties ##
+
+If you would like to make different assertions about pages, look in the
+`app/axess/checkers` package for examples. In short, you need to subclass the
+`axess.checkers.Checker` class. Then, look at the `app/axess/Worker.scala` file
+and add your new checker to the `checkers` list. That's all there is to it!
+
