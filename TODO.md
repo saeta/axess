@@ -2,7 +2,6 @@
 
  - Write up instructions to build, deploy and run in README.md
  - Write up instructions for extending Axess
- - Make sure links aren't "click here", or numbers. (Should be warning.)
  - Add timing (i.e. daily run tests) (+ in dev mode, hitting a URL triggers it.)
 
  - Update Play to Bootstrap2.X
