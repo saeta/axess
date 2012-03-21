@@ -67,9 +67,11 @@ Github has the best guides to installing Git. Check out their
    be done by executing: `unzip play-2.0.zip`, or `open play-2.0.zip` on a Mac)
 3. Add that folder to your path. If you're using Bash edit your `~/.bashrc`
    and append the line
+
      ```bash
      export PATH=$PATH:~/play-2.0
      ```
+
      To edit your `.bashrc`, you can execute either: `gedit ~/.bashrc` (Linux)
      or `open ~/.bashrc` (Mac) on the command prompt.
 
