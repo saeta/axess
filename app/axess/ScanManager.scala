@@ -131,9 +131,17 @@ class ScanManager extends Actor {
         if pagesEncountered.size < 15000
         if !NON_HTML_SUFFIX(url)
       } {
-        pagesEncountered += url
-        ScanMsg.foundPage(site.scanId, url)
-        workers ! ScanPage(url)
+        if (url.length() > 300) {
+          ScanMsg.addMsg(site.scanId,
+            "Usability",
+            "URL too long",
+            "#",
+            "Url too long: " + url)
+        } else {
+          pagesEncountered += url
+          ScanMsg.foundPage(site.scanId, url)
+          workers ! ScanPage(url)
+        }
       }
       sendDone()
   }

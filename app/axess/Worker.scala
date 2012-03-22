@@ -42,17 +42,35 @@ class Worker extends Actor {
     new ValidLinks()*/ ) // ValidLinks disabled due to performance concerns
 
   def scanPage(url: String) = {
-    browser.get(url)
+    var problemLoading = false
+    try {
+      println("Getting: " + url)
+      browser.get(url)
+      println("Got: " + url)
+    } catch {
+      // Handle failures more gracefully
+      case e =>
+        problemLoading = true
+        sender ! PageScanResult(url, url, List(PageNote("Usability", e.getMessage())))
+        sender ! NewUrls(url, Set())
+    }
+    if (!problemLoading) {
+      findAllUrls(url)
+      checkPage(url)
+    }
+  }
+
+  def findAllUrls(url: String) = {
     if (siteType == null) throw new RuntimeException("Help!")
     val f = browser.findElements(By.tagName("a")).toSet.map {
       e: WebElement => e.getAttribute("href")
     }.map(
       s => makeCanonical(url, s)).filter(
         s => siteType.inSite(s))
-    sender ! NewUrls(f)
+    sender ! NewUrls(url, f)
   }
 
-  def processPage(url: String) = {
+  def checkPage(url: String) = {
     val list = for {
       chk <- checkers
       msgs <- chk.checkPage(browser)
@@ -83,7 +101,6 @@ class Worker extends Actor {
   def receive = {
     case ScanPage(url) =>
       scanPage(url)
-      processPage(url)
     case NewSite(site) =>
       login(site)
   }

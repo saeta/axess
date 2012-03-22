@@ -44,4 +44,4 @@ case class NewSite(site: Site) // Clears cookies, etc. Prepares workers for site
 case class ScanPage(url: String)
 case class PageNote(category: String, msg: String) // (URL provided by PageScanResult)
 case class PageScanResult(url: String, title: String, notes: List[PageNote])
-case class NewUrls(urls: Set[String])
+case class NewUrls(url: String, urls: Set[String])
