@@ -31,6 +31,13 @@ import akka.event.Logging
 class ScanManager extends Actor {
   val log = Logging(context.system, this)
   val NUM_WORKERS = 4
+  val NON_HTML_RESOURCE_SUFFIXES = List(".pdf", ".ppt", ".bib", ".doc", ".docx",
+    ".zip", ".bz2", ".gz", ".tar", ".mp3", ".m4v", ".mov", ".tex", ".rtf",
+    ".pages", ".csv", ".dat", ".ibooks", ".key", ".pps", ".pptx", ".xls",
+    ".xlsx", ".m3u", ".m4a", ".mp3", ".mpa", ".wav", ".wma", ".avi", ".swf",
+    ".mpg", ".wmv", ".jpg", ".tif", ".bmp", ".tgz", ".ps", ".jar")
+
+  def NON_HTML_SUFFIX(url: String) = NON_HTML_RESOURCE_SUFFIXES.map({ s => url.endsWith(s) }).reduce(_ || _)
 
   // Escalate everything up to axess which will take care of any issues by
   // restarting this whole ScanManager tree
@@ -120,6 +127,7 @@ class ScanManager extends Actor {
         url <- n.urls
         if !pagesEncountered.contains(url)
         if pagesEncountered.size < 15000
+        if !NON_HTML_SUFFIX(url)
       } {
         pagesEncountered += url
         ScanMsg.foundPage(site.scanId, url)
