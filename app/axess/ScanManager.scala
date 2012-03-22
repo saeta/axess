@@ -35,7 +35,9 @@ class ScanManager extends Actor {
     ".zip", ".bz2", ".gz", ".tar", ".mp3", ".m4v", ".mov", ".tex", ".rtf",
     ".pages", ".csv", ".dat", ".ibooks", ".key", ".pps", ".pptx", ".xls",
     ".xlsx", ".m3u", ".m4a", ".mp3", ".mpa", ".wav", ".wma", ".avi", ".swf",
-    ".mpg", ".wmv", ".jpg", ".tif", ".bmp", ".tgz", ".ps", ".jar")
+    ".mpg", ".wmv", ".jpg", ".tif", ".bmp", ".tgz", ".ps", ".jar", ".txt",
+    ".gif", ".png", ".jpeg", ".tiff", ".sty", ".xml", ".java", ".dmg", ".c",
+    ".clk", ".exe", ".bin", ".xsl", ".scala", ".cc", ".cpp")
 
   def NON_HTML_SUFFIX(url: String) = NON_HTML_RESOURCE_SUFFIXES.map({ s => url.endsWith(s) }).reduce(_ || _)
 
